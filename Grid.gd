@@ -1,6 +1,7 @@
 extends Node
 
 export (PackedScene) var GridBlock;
+export (PackedScene) var ShapeShortL;
 
 ## Constants
 export (int) var gridWidth := 0; # In gridblocks
@@ -25,14 +26,21 @@ func _ready():
 	
 	# Get the gridBlock to fill on the next turn
 	var gridBlockToFillNextTurn = findNearbyEmptyGridBlock(startingGridBlock);
-	gridBlockToFillNextTurn.changeState(gridBlockToFillNextTurn.STATES.FILL_NEXT);
+	gridBlockToFillNextTurn.setState(gridBlockToFillNextTurn.STATES.FILL_NEXT);
+	
+	# Spawn a shape off to the left
+	var shape = ShapeShortL.instance();
+	shape.global_position = Vector2(100, 75);
+	# Give grid
+	shape.grid = grid;
+	add_child(shape);
 
 # Called at the beginning of every turn
 func nextTurn():
 	# Get all blocks to fill and fill them
 	var blocksToFill = get_tree().get_nodes_in_group("fillNext");
 	for block in blocksToFill:
-		block.changeState(block.STATES.FILLED);
+		block.setState(block.STATES.FILLED);
 	
 	# Find a new block to set as fillNext
 	var rand = RandomNumberGenerator.new();
@@ -48,13 +56,13 @@ func nextTurn():
 		
 		# If a random empty GridBlock near the random filled GridBlock was found, then set it to fillNext
 		if newFillNextBlock != null:
-			newFillNextBlock.changeState(newFillNextBlock.STATES.FILL_NEXT);
+			newFillNextBlock.setState(newFillNextBlock.STATES.FILL_NEXT);
 	
 	# Set surrounded gridblocks to danger state
 	filledBlocks = get_tree().get_nodes_in_group("filled");
 	for gridBlock in filledBlocks:
 		if gridBlock.isSurrounded():
-			gridBlock.changeState(gridBlock.STATES.DANGER1);
+			gridBlock.setState(gridBlock.STATES.DANGER1);
 
 
 # Returns an empty GridBlock near the given GridBlock, or null if none exist

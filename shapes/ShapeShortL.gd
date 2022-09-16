@@ -9,6 +9,21 @@ func _ready():
 #func _process(delta):
 #	pass
 
+# Attempts to place the shape on the grid
+#gridBlock=the GridBlock to place the shape on
+func placeShape(gridBlock) -> bool:
+	# Get filled blocks and coordinates of gridBlock
+	var filledBlocks = get_tree().get_nodes_in_group("filled");
+	var gridBlockRow = gridBlock.row;
+	var gridBlockCol = gridBlock.col;
+	
+	if (gridBlock in filledBlocks and grid[gridBlockRow-1][gridBlockCol] in filledBlocks and grid[gridBlockRow][gridBlockCol+1] in filledBlocks):
+		gridBlock.setState(gridBlock.STATES.EMPTY);
+		grid[gridBlockRow-1][gridBlockCol].setState(gridBlock.STATES.EMPTY);
+		grid[gridBlockRow][gridBlockCol+1].setState(gridBlock.STATES.EMPTY);
+		return true;
+	return false
+
 # Called when an input event occurs within the shape
 func _on_input_event(viewport, event, shape_idx):
 	# Call parent function

@@ -10,9 +10,15 @@ enum STATES {GRABBED, IDLE};
 var state : int = STATES.IDLE;
 # Global position of where the shape rests when not being grabbed
 var restingPos := Vector2();
+var gridHeight := -1;
+var gridWidth := -1;
+var grid := [];
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	# Set grid dimensions
+	gridHeight = grid.size();
+	gridWidth = grid[0].size();
 	# Set the resting pos as the position spawned at
 	restingPos = global_position;
 	# Set default z_index
@@ -26,6 +32,11 @@ func _process(delta):
 	else:
 		global_position = restingPos;
 
+# Attempts to place the shape on the grid
+#gridBlock=the GridBlock to place the shape on
+func placeShape(gridBlock):
+	pass
+
 # Called when an input event occurs within the shape
 func _on_input_event(viewport, event, shape_idx):
 	# If the event involves a mouse button...
@@ -35,4 +46,16 @@ func _on_input_event(viewport, event, shape_idx):
 			state = STATES.GRABBED;
 		# If the event is the left button being released, then move to idle state
 		elif event.button_index == BUTTON_LEFT and event.is_action_released("ui_left_mouse"):
+			# Iterate through the grid to see if the shape has been released on a GridBlock
+			for row in range(gridHeight):
+				for col in range(gridWidth):
+					# If the current GridBlock had the mouse, then attempt to place the shape
+					if grid[row][col].mouseEntered:
+						# If the shape was placed, then return. Otherwise set state to idle and then return
+						var shapePlaced = placeShape(grid[row][col]);
+						if shapePlaced:
+							queue_free();
+						state = STATES.IDLE;
+						return
+			# If no GridBlocks had the mouse, then the shape was not dropped on a GridBlock
 			state = STATES.IDLE;

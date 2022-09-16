@@ -6,9 +6,7 @@
 [node name="MainRoom" type="Node"]
 
 [node name="Grid" parent="." instance=ExtResource( 1 )]
-
-[node name="ShapeShortL" parent="Grid" instance=ExtResource( 2 )]
-position = Vector2( 75, 129 )
+ShapeShortL = ExtResource( 2 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
