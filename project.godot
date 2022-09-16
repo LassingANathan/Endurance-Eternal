@@ -21,12 +21,23 @@ _global_script_class_icons={
 [application]
 
 config/name="Eternally Enduring"
-run/main_scene="res://scenes/MainScene.tscn"
+run/main_scene="res://rooms/MainScene.tscn"
+boot_splash/use_filter=false
 config/icon="res://icon.png"
+
+[display]
+
+window/size/width=1080
+window/size/height=1920
 
 [gdnative]
 
 singletons=[ "res://addons/godot-git-plugin/git_api.gdnlib" ]
+
+[global]
+
+import=false
+filter=false
 
 [physics]
 
