@@ -6,7 +6,7 @@
 [node name="Grid" type="Node"]
 script = ExtResource( 2 )
 GridBlock = ExtResource( 1 )
-gridWidth = 10
-gridHeight = 10
+gridWidth = 16
+gridHeight = 16
 gridBlockWidth = 10
 gridBlockHeight = 10

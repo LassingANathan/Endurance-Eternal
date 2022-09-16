@@ -13,7 +13,7 @@ var grid = [];
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	createGrid(grid, gridHeight, gridWidth, gridBlockHeight, gridBlockWidth, Vector2(50,50));
+	createGrid(grid, gridHeight, gridWidth, gridBlockHeight, gridBlockWidth, Vector2(161,60));
 
 # Instantiates the grid with GridBlocks
 #grid: variable to store grid in
