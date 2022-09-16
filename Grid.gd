@@ -13,7 +13,13 @@ var grid := [];
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	# Fill the grid with GridBlocks
 	createGrid(grid, gridHeight, gridWidth, gridBlockHeight, gridBlockWidth, Vector2(161,60));
+
+	# Choose a random GridBlock to set as filled at the start
+	var rand = RandomNumberGenerator.new();
+	grid[rand.randi_range(0,gridHeight-1)][rand.randi_range(0,gridWidth-1)].clicked();
+	
 
 # Instantiates the grid with GridBlocks
 #grid: variable to store grid in
