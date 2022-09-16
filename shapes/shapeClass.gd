@@ -13,8 +13,10 @@ var restingPos := Vector2();
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	# Set the resting pos as the position spawned in at
+	# Set the resting pos as the position spawned at
 	restingPos = global_position;
+	# Set default z_index
+	z_index = 1;
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
