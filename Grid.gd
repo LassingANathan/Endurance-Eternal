@@ -39,6 +39,7 @@ func createGrid(grid, gridHeight, gridWidth, gridBlockHeight, gridBlockWidth, up
 			# Create a new GridBlock
 			var gridBlock = GridBlock.instance();
 			gridBlock.position = Vector2(currentGridBlockXPos, currentGridBlockYPos);
+			gridBlock.connect("clicked", self, "_on_GridBlock_clicked")
 			add_child(gridBlock);
 			
 			# Update the xpos
@@ -50,3 +51,7 @@ func createGrid(grid, gridHeight, gridWidth, gridBlockHeight, gridBlockWidth, up
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
 #	pass
+
+# Called when a GridBlock is clicked
+func _on_GridBlock_clicked():
+	pass
