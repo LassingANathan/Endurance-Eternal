@@ -27,8 +27,10 @@ func changeState(newState : int):
 	match newState:
 		STATES.EMPTY:
 			$AnimatedSprite.animation = "empty"
+			self.remove_from_group("filled")
 		STATES.FILLED:
 			$AnimatedSprite.animation = "filled"
+			self.add_to_group("filled")
 		STATES.DANGER1:
 			$AnimatedSprite.animation = "danger1"
 		STATES.DANGER2:
