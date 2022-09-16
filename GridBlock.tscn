@@ -1,4 +1,4 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=10 format=2]
 
 [ext_resource path="res://assets/sprites/gridBlockSprites/gridBlockEmptySpriteSheet.png" type="Texture" id=1]
 [ext_resource path="res://assets/sprites/gridBlockSprites/gridBlockFillNextSpriteSheet.png" type="Texture" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://assets/sprites/gridBlockSprites/gridBlockDanger2SpriteSheet.png" type="Texture" id=4]
 [ext_resource path="res://assets/sprites/gridBlockSprites/gridBlockFilledSpriteSheet.png" type="Texture" id=5]
 [ext_resource path="res://assets/sprites/gridBlockSprites/gridBlockDanger1SpriteSheet.png" type="Texture" id=6]
+[ext_resource path="res://GridBlock.gd" type="Script" id=7]
 
 [sub_resource type="SpriteFrames" id=6]
 animations = [ {
@@ -24,9 +25,9 @@ animations = [ {
 "name": "danger1",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 4 ) ],
+"frames": [ ExtResource( 2 ) ],
 "loop": true,
-"name": "danger2",
+"name": "fillNext",
 "speed": 5.0
 }, {
 "frames": [ ExtResource( 3 ) ],
@@ -34,9 +35,9 @@ animations = [ {
 "name": "danger3",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 2 ) ],
+"frames": [ ExtResource( 4 ) ],
 "loop": true,
-"name": "fillNext",
+"name": "danger2",
 "speed": 5.0
 } ]
 
@@ -44,6 +45,7 @@ animations = [ {
 extents = Vector2( 5, 5 )
 
 [node name="GridBlock" type="Area2D"]
+script = ExtResource( 7 )
 
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 6 )
@@ -51,3 +53,5 @@ animation = "empty"
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 7 )
+
+[connection signal="input_event" from="." to="." method="_on_GridBlock_input_event"]
