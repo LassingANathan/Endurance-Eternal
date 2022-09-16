@@ -13,6 +13,10 @@ var restingPos := Vector2();
 var gridHeight := -1;
 var gridWidth := -1;
 var grid := [];
+var disFromMainToTop := -1; # Distance, in blocks, from the main block to the top block
+var disFromMainToRight := -1; # Distance, in blocks, from the main block to the rightmost block
+var disFromMainToBottom := -1; # Distance, in blocks, from the main block to the bottom block
+var disFromMainToLeft := -1; # Distance, in blocks, from the main block to the leftmost block
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -34,8 +38,14 @@ func _process(delta):
 
 # Attempts to place the shape on the grid
 #gridBlock=the GridBlock to place the shape on
-func placeShape(gridBlock):
-	pass
+func placeShape(gridBlock) -> bool:
+	# Ensure placing the block won't leave the boundaries of the grid
+	if gridBlock.row - disFromMainToTop < 0 or \
+	   gridBlock.col + disFromMainToRight > gridWidth-1 or \
+	   gridBlock.row + disFromMainToBottom > gridHeight-1 or \
+	   gridBlock.col - disFromMainToLeft < 0:
+		return false;
+	return true;
 
 # Called when an input event occurs within the shape
 func _on_input_event(viewport, event, shape_idx):

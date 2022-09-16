@@ -2,6 +2,11 @@ extends "res://shapes/shapeClass.gd"
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	# Set all distances
+	disFromMainToTop = 1;
+	disFromMainToRight = 1;
+	disFromMainToBottom = 0;
+	disFromMainToLeft = 0;
 	._ready();
 
 
@@ -12,11 +17,15 @@ func _ready():
 # Attempts to place the shape on the grid
 #gridBlock=the GridBlock to place the shape on
 func placeShape(gridBlock) -> bool:
+	# If the parent function returns false, then return false
+	if (!.placeShape(gridBlock)):
+		return false
 	# Get filled blocks and coordinates of gridBlock
 	var filledBlocks = get_tree().get_nodes_in_group("filled");
 	var gridBlockRow = gridBlock.row;
 	var gridBlockCol = gridBlock.col;
 	
+	# If all blocks on the grid that the shape overlaps are filled, then the shape can be placed. Empty the blocks and return true
 	if (gridBlock in filledBlocks and grid[gridBlockRow-1][gridBlockCol] in filledBlocks and grid[gridBlockRow][gridBlockCol+1] in filledBlocks):
 		gridBlock.setState(gridBlock.STATES.EMPTY);
 		grid[gridBlockRow-1][gridBlockCol].setState(gridBlock.STATES.EMPTY);
