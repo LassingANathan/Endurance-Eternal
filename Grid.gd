@@ -3,13 +3,13 @@ extends Node
 export (PackedScene) var GridBlock;
 
 ## Constants
-export (int) var gridWidth : = 0; # In gridblocks
-export (int) var gridHeight : = 0; # In gridblocks
-export (int) var gridBlockWidth : = 0; # In pixels
-export (int) var gridBlockHeight : = 0; # In pixels
+export (int) var gridWidth := 0; # In gridblocks
+export (int) var gridHeight := 0; # In gridblocks
+export (int) var gridBlockWidth := 0; # In pixels
+export (int) var gridBlockHeight := 0; # In pixels
 
 ## Variables
-var grid = [];
+var grid := [];
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -22,8 +22,8 @@ func _ready():
 #upperLeftGridBlockPos: position of (the center of) the upper left GridBlock
 func createGrid(grid, gridHeight, gridWidth, gridBlockHeight, gridBlockWidth, upperLeftGridBlockPos : Vector2) -> void:
 	# Set relative coordinates for current GridBlock being created
-	var currentGridBlockXPos = upperLeftGridBlockPos.x;
-	var currentGridBlockYPos = upperLeftGridBlockPos.y;
+	var currentGridBlockXPos := upperLeftGridBlockPos.x;
+	var currentGridBlockYPos := upperLeftGridBlockPos.y;
 	
 	# Create rows (and columns!)
 	for row in range(gridHeight):
