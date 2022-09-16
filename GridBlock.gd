@@ -6,11 +6,11 @@ signal clicked()
 
 ## Constants
 #empty=black, filled=white, fillNext=will be filled next turn
-enum STATES {EMPTY, FILLED, DANGER1, DANGER2, DANGER3, FILLNEXT}
+enum STATES {EMPTY, FILLED, DANGER1, DANGER2, DANGER3, FILL_NEXT}
 
 ## Variables
 var state := 0 # Current state. default is zero, i.e., STATES.EMPTY
-var column := -1 # the column of the GridBlock
+var col := -1 # the column of the GridBlock
 var row := -1  # the row of the GridBlock
 
 # Called when the node enters the scene tree for the first time.
@@ -44,8 +44,8 @@ func changeState(newState : int):
 			$AnimatedSprite.animation = "danger2"
 		STATES.DANGER3:
 			$AnimatedSprite.animation = "danger3"
-		STATES.FILLNEXT:
-			$AnimatedSprite.animation = "fillnext"
+		STATES.FILL_NEXT:
+			$AnimatedSprite.animation = "fillNext"
 
 # Called when an input event happens within this GridBlock
 func _on_GridBlock_input_event(viewport, event, shape_idx):

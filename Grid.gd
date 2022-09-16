@@ -18,8 +18,60 @@ func _ready():
 
 	# Choose a random GridBlock to set as filled at the start
 	var rand = RandomNumberGenerator.new();
-	grid[rand.randi_range(0,gridHeight-1)][rand.randi_range(0,gridWidth-1)].clicked();
+	var startingGridBlock = grid[rand.randi_range(0,gridHeight-1)][rand.randi_range(0,gridWidth-1)]
+	startingGridBlock.clicked()
+	print(startingGridBlock.row, " ", startingGridBlock.col)
+	var gridBlockToFillNextTurn = findNearbyEmptyGridBlock(startingGridBlock);
+	gridBlockToFillNextTurn.changeState(gridBlockToFillNextTurn.STATES.FILL_NEXT);
+
+# Returns an empty GridBlock near the given GridBlock, or null if none exist
+#gridBlock=the GridBlock to search near
+func findNearbyEmptyGridBlock(gridBlock):
+	var directionsToCheck = [0, 1, 2, 3] # 0=up, continues clockwise
 	
+	# If in top row, don't check GridBlock above
+	if gridBlock.row == 0:
+		directionsToCheck.erase(0);
+	# If in last row, don't check GridBlock below
+	elif gridBlock.row == gridHeight - 1:
+		directionsToCheck.erase(2);
+	# If in leftmost column, don't check GridBlock to left
+	if gridBlock.col == 0:
+		directionsToCheck.erase(3);
+	# If in rightmost column, don't check GridBlock to right
+	elif gridBlock.col == gridWidth - 1:
+		directionsToCheck.erase(1);
+		
+	# While there are directions to check, check for them in a random order
+	while directionsToCheck.size() > 0:
+		# Get a random direction
+		var rand = RandomNumberGenerator.new();
+		var dirToCheck = directionsToCheck[rand.randi_range(0, directionsToCheck.size()-1)]
+		
+		# Checking above
+		if dirToCheck == 0:
+			# If above GridBlock is empty, then return that GridBlock
+			if (grid[gridBlock.row - 1][gridBlock.col].state == gridBlock.STATES.EMPTY):
+				return grid[gridBlock.row - 1][gridBlock.col];
+		# Checking right
+		if dirToCheck == 1:
+			# If right GridBlock is empty, then return that GridBlock
+			if (grid[gridBlock.row][gridBlock.col + 1].state == gridBlock.STATES.EMPTY):
+				return grid[gridBlock.row ][gridBlock.col + 1];
+		# Checking below
+		if dirToCheck == 2:
+			# If below GridBlock is empty, then return that GridBlock
+			if (grid[gridBlock.row + 1][gridBlock.col].state == gridBlock.STATES.EMPTY):
+				return grid[gridBlock.row + 1][gridBlock.col];
+		# Checking left
+		if dirToCheck == 3:
+			# If left GridBlock is empty, then return that GridBlock
+			if (grid[gridBlock.row][gridBlock.col - 1].state == gridBlock.STATES.EMPTY):
+				return grid[gridBlock.row][gridBlock.col - 1];
+			
+	return null
+	
+
 # Instantiates the grid with GridBlocks
 #grid: variable to store grid in
 #gridHeight, gridWidth: dimensions of the grid, in GridBlocks
@@ -49,7 +101,7 @@ func createGrid(grid, gridHeight, gridWidth, gridBlockHeight, gridBlockWidth, up
 			gridBlock.connect("clicked", self, "_on_GridBlock_clicked");
 			# Give coordinates on grid
 			gridBlock.row = row;
-			gridBlock.column = col;
+			gridBlock.col = col;
 			
 			add_child(gridBlock);
 			
