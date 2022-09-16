@@ -31,6 +31,7 @@ func _ready():
 	# Spawn a shape off to the left
 	var shape = ShapeShortL.instance();
 	shape.global_position = Vector2(100, 75);
+	shape.connect("placed", self, "_on_Shape_placed");
 	# Give grid
 	shape.grid = grid;
 	add_child(shape);
@@ -171,3 +172,7 @@ func createGrid(grid, gridHeight, gridWidth, gridBlockHeight, gridBlockWidth, up
 func _on_GridBlock_clicked():
 	if clickAdvancesTurn:
 		nextTurn();
+		
+# Called when a shape is placed
+func _on_Shape_placed():
+	nextTurn();
