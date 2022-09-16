@@ -2,8 +2,7 @@ extends Area2D
 
 ## Signals
 # Emitted when clicked.
-#block=block that was clicked
-signal clicked(block)
+signal clicked()
 
 ## Constants
 #empty=black, filled=white, fillNext=will be filled next turn
@@ -24,7 +23,7 @@ func _ready():
 func clicked():
 	# Change to filled state
 	self.changeState(STATES.FILLED);
-	emit_signal("clicked", self)
+	emit_signal("clicked")
 
 # Updates the GridBlock's state to the new given state
 #newState=the STATES value of the new state
