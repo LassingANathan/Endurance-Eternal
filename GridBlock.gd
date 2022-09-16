@@ -34,11 +34,13 @@ func changeState(newState : int):
 	match newState:
 		STATES.EMPTY:
 			$AnimatedSprite.animation = "empty";
-			self.remove_from_group("filled");
+			if self.is_in_group("filled"):
+				self.remove_from_group("filled");
 		STATES.FILLED:
 			$AnimatedSprite.animation = "filled";
 			self.add_to_group("filled");
-			self.remove_from_group("fillNext")
+			if self.is_in_group("fillNext"):
+				self.remove_from_group("fillNext")
 		STATES.DANGER1:
 			$AnimatedSprite.animation = "danger1";
 		STATES.DANGER2:

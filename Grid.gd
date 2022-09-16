@@ -10,6 +10,7 @@ export (int) var gridBlockHeight := 0; # In pixels
 
 ## Variables
 var grid := [];
+var clickAdvancesTurn := false; # boolean for whether clicks should advance a turn. Allows the starting fill block to be filled without advancing a turn
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -20,15 +21,35 @@ func _ready():
 	var rand = RandomNumberGenerator.new();
 	var startingGridBlock = grid[rand.randi_range(0,gridHeight-1)][rand.randi_range(0,gridWidth-1)]
 	startingGridBlock.clicked()
-	print(startingGridBlock.row, " ", startingGridBlock.col)
+	clickAdvancesTurn = true;
+	
+	# Get the gridBlock to fill on the next turn
 	var gridBlockToFillNextTurn = findNearbyEmptyGridBlock(startingGridBlock);
 	gridBlockToFillNextTurn.changeState(gridBlockToFillNextTurn.STATES.FILL_NEXT);
+
+# Called at the beginning of every turn
+func nextTurn():
+	# Get all blocks to fill and fill them
+	var blocksToFill = get_tree().get_nodes_in_group("fillNext");
+	for block in blocksToFill:
+		block.changeState(block.STATES.FILLED);
+	
+	# Find a new block to set as fillNext
+	var rand = RandomNumberGenerator.new();
+	var newFillNextBlock = null;
+	# Keep attempting to find a new fillNext GridBlock until one is found
+	while newFillNextBlock == null:
+		var filledBlocks = get_tree().get_nodes_in_group("filled");
+		# Find a random empty GridBlock near a random filled GridBlocklock
+		newFillNextBlock = findNearbyEmptyGridBlock(filledBlocks[rand.randi_range(0, filledBlocks.size()-1)]);
+		# If a random empty GridBlock near the random filled GridBlock was found, then set it to fillNext
+		if newFillNextBlock != null:
+			newFillNextBlock.changeState(newFillNextBlock.STATES.FILL_NEXT);
 
 # Returns an empty GridBlock near the given GridBlock, or null if none exist
 #gridBlock=the GridBlock to search near
 func findNearbyEmptyGridBlock(gridBlock):
 	var directionsToCheck = [0, 1, 2, 3] # 0=up, continues clockwise
-	
 	# If in top row, don't check GridBlock above
 	if gridBlock.row == 0:
 		directionsToCheck.erase(0);
@@ -53,21 +74,29 @@ func findNearbyEmptyGridBlock(gridBlock):
 			# If above GridBlock is empty, then return that GridBlock
 			if (grid[gridBlock.row - 1][gridBlock.col].state == gridBlock.STATES.EMPTY):
 				return grid[gridBlock.row - 1][gridBlock.col];
+			# If the block wasn't open, remove it from the directions to check
+			directionsToCheck.erase(0);
 		# Checking right
 		if dirToCheck == 1:
 			# If right GridBlock is empty, then return that GridBlock
 			if (grid[gridBlock.row][gridBlock.col + 1].state == gridBlock.STATES.EMPTY):
 				return grid[gridBlock.row ][gridBlock.col + 1];
+			# If the block wasn't open, remove it from the directions to check
+			directionsToCheck.erase(1);
 		# Checking below
 		if dirToCheck == 2:
 			# If below GridBlock is empty, then return that GridBlock
 			if (grid[gridBlock.row + 1][gridBlock.col].state == gridBlock.STATES.EMPTY):
 				return grid[gridBlock.row + 1][gridBlock.col];
+			# If the block wasn't open, remove it from the directions to check
+			directionsToCheck.erase(2);
 		# Checking left
 		if dirToCheck == 3:
 			# If left GridBlock is empty, then return that GridBlock
 			if (grid[gridBlock.row][gridBlock.col - 1].state == gridBlock.STATES.EMPTY):
 				return grid[gridBlock.row][gridBlock.col - 1];
+			# If the block wasn't open, remove it from the directions to check
+			directionsToCheck.erase(3);
 			
 	return null
 	
@@ -116,4 +145,5 @@ func createGrid(grid, gridHeight, gridWidth, gridBlockHeight, gridBlockWidth, up
 
 # Called when a GridBlock is clicked
 func _on_GridBlock_clicked():
-	pass
+	if clickAdvancesTurn:
+		nextTurn();
