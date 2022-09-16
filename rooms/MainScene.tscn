@@ -1,6 +1,7 @@
-[gd_scene load_steps=2 format=2]
+[gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://Grid.tscn" type="PackedScene" id=1]
+[ext_resource path="res://shapes/ShapeShortL.tscn" type="PackedScene" id=2]
 
 [node name="MainRoom" type="Node"]
 
@@ -11,3 +12,6 @@ current = true
 zoom = Vector2( 0.3, 0.3 )
 limit_left = 0
 limit_top = 0
+
+[node name="ShapeShortL" parent="." instance=ExtResource( 2 )]
+position = Vector2( 75, 129 )
