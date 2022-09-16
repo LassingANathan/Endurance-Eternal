@@ -33,19 +33,21 @@ func changeState(newState : int):
 	state = newState
 	match newState:
 		STATES.EMPTY:
-			$AnimatedSprite.animation = "empty"
-			self.remove_from_group("filled")
+			$AnimatedSprite.animation = "empty";
+			self.remove_from_group("filled");
 		STATES.FILLED:
-			$AnimatedSprite.animation = "filled"
-			self.add_to_group("filled")
+			$AnimatedSprite.animation = "filled";
+			self.add_to_group("filled");
+			self.remove_from_group("fillNext")
 		STATES.DANGER1:
-			$AnimatedSprite.animation = "danger1"
+			$AnimatedSprite.animation = "danger1";
 		STATES.DANGER2:
-			$AnimatedSprite.animation = "danger2"
+			$AnimatedSprite.animation = "danger2";
 		STATES.DANGER3:
-			$AnimatedSprite.animation = "danger3"
+			$AnimatedSprite.animation = "danger3";
 		STATES.FILL_NEXT:
-			$AnimatedSprite.animation = "fillNext"
+			$AnimatedSprite.animation = "fillNext";
+			self.add_to_group("fillNext");
 
 # Called when an input event happens within this GridBlock
 func _on_GridBlock_input_event(viewport, event, shape_idx):
