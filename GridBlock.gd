@@ -5,12 +5,11 @@ extends Area2D
 enum STATES {EMPTY, FILLED, DANGER1, DANGER2, DANGER3, FILLNEXT}
 
 ## Variables
-var state : = 0 #default is zero, i.e., EMPTY
+var state : = 0 #default is zero, i.e., STATES.EMPTY
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	pass # Replace with function body.
-
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
@@ -18,6 +17,7 @@ func _ready():
 
 # Called by __on_GridBlock_input_event() when the GridBlock is left clicked
 func clicked():
+	# Change to filled state
 	self.changeState(STATES.FILLED);
 
 # Updates the GridBlock's state to the new given state
