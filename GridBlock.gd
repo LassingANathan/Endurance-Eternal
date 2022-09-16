@@ -9,17 +9,29 @@ signal clicked()
 enum STATES {EMPTY, FILLED, DANGER1, DANGER2, DANGER3, FILL_NEXT}
 
 ## Variables
-var state := 0 # Current state. default is zero, i.e., STATES.EMPTY
-var col := -1 # the column of the GridBlock
-var row := -1  # the row of the GridBlock
+var state := 0; # Current state. default is zero, i.e., STATES.EMPTY
+var col := -1; # The column of the GridBlock
+var row := -1; # The row of the GridBlock
+var gridWidth := -1; # The width of the grid in GridBlocks
+var gridHeight := -1; # The height of the grid in GridBlocks
+var grid := []; # The grid this GridBlock is a part of
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass # Replace with function body.
+	pass
 
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
+# Returns true if all 8 GridBlocks surrounding this GridBlock is filled
+func isSurrounded() -> bool:
+	# If on borders, this GridBlock can never be surrounded
+	if (row == 0 or col == 0 or row == gridHeight - 1 or col == gridWidth - 1):
+		return false
+	else:
+		# Get all filled blocks (includes danger blocks)
+		var filledBlocks = get_tree().get_nodes_in_group("filled");
+		# Return true if all 8 surrounding GridBlocks are filled
+		return grid[row-1][col-1] in filledBlocks and grid[row-1][col] in filledBlocks and grid[row-1][col+1] in filledBlocks \
+		   and grid[row][col-1] in filledBlocks and grid[row][col+1] in filledBlocks \
+		   and grid[row+1][col-1] in filledBlocks and grid[row+1][col] in filledBlocks and grid[row+1][col+1] in filledBlocks;
 
 # Called by __on_GridBlock_input_event() when the GridBlock is left clicked
 func clicked():
@@ -41,6 +53,7 @@ func changeState(newState : int):
 			self.add_to_group("filled");
 			if self.is_in_group("fillNext"):
 				self.remove_from_group("fillNext")
+		# NOTE: Danger states count as filled, so they are not removed from filled group
 		STATES.DANGER1:
 			$AnimatedSprite.animation = "danger1";
 		STATES.DANGER2:

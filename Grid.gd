@@ -36,15 +36,26 @@ func nextTurn():
 	
 	# Find a new block to set as fillNext
 	var rand = RandomNumberGenerator.new();
+	var filledBlocks = get_tree().get_nodes_in_group("filled");
 	var newFillNextBlock = null;
 	# Keep attempting to find a new fillNext GridBlock until one is found
 	while newFillNextBlock == null:
-		var filledBlocks = get_tree().get_nodes_in_group("filled");
+		# Get all currently filled blocks
+		filledBlocks = get_tree().get_nodes_in_group("filled");
+		
 		# Find a random empty GridBlock near a random filled GridBlocklock
 		newFillNextBlock = findNearbyEmptyGridBlock(filledBlocks[rand.randi_range(0, filledBlocks.size()-1)]);
+		
 		# If a random empty GridBlock near the random filled GridBlock was found, then set it to fillNext
 		if newFillNextBlock != null:
 			newFillNextBlock.changeState(newFillNextBlock.STATES.FILL_NEXT);
+	
+	# Set surrounded gridblocks to danger state
+	filledBlocks = get_tree().get_nodes_in_group("filled");
+	for gridBlock in filledBlocks:
+		if gridBlock.isSurrounded():
+			gridBlock.changeState(gridBlock.STATES.DANGER1);
+
 
 # Returns an empty GridBlock near the given GridBlock, or null if none exist
 #gridBlock=the GridBlock to search near
@@ -131,6 +142,11 @@ func createGrid(grid, gridHeight, gridWidth, gridBlockHeight, gridBlockWidth, up
 			# Give coordinates on grid
 			gridBlock.row = row;
 			gridBlock.col = col;
+			# Give grid dimensions
+			gridBlock.gridHeight = gridHeight;
+			gridBlock.gridWidth = gridWidth;
+			# Give grid
+			gridBlock.grid = grid;
 			
 			add_child(gridBlock);
 			
