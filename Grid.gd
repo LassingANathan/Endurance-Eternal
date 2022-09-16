@@ -20,7 +20,6 @@ func _ready():
 	var rand = RandomNumberGenerator.new();
 	grid[rand.randi_range(0,gridHeight-1)][rand.randi_range(0,gridWidth-1)].clicked();
 	
-
 # Instantiates the grid with GridBlocks
 #grid: variable to store grid in
 #gridHeight, gridWidth: dimensions of the grid, in GridBlocks
@@ -44,10 +43,17 @@ func createGrid(grid, gridHeight, gridWidth, gridBlockHeight, gridBlockWidth, up
 		for col in range(gridWidth):
 			# Create a new GridBlock
 			var gridBlock = GridBlock.instance();
+			# Give position
 			gridBlock.position = Vector2(currentGridBlockXPos, currentGridBlockYPos);
-			gridBlock.connect("clicked", self, "_on_GridBlock_clicked")
+			# Connect signals
+			gridBlock.connect("clicked", self, "_on_GridBlock_clicked");
+			# Give coordinates on grid
+			gridBlock.row = row;
+			gridBlock.column = col;
+			
 			add_child(gridBlock);
 			
+			# Add GridBlock into list
 			grid[row][col] = gridBlock;
 			
 			# Update the xpos
@@ -55,10 +61,6 @@ func createGrid(grid, gridHeight, gridWidth, gridBlockHeight, gridBlockWidth, up
 			
 		# Update ypos after we're done with a row
 		currentGridBlockYPos += gridBlockHeight;
-
-# Called every frame. 'delta' is the elapsed time since the previous frame.
-#func _process(delta):
-#	pass
 
 # Called when a GridBlock is clicked
 func _on_GridBlock_clicked():

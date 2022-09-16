@@ -9,7 +9,9 @@ signal clicked()
 enum STATES {EMPTY, FILLED, DANGER1, DANGER2, DANGER3, FILLNEXT}
 
 ## Variables
-var state : = 0 #default is zero, i.e., STATES.EMPTY
+var state := 0 # Current state. default is zero, i.e., STATES.EMPTY
+var column := -1 # the column of the GridBlock
+var row := -1  # the row of the GridBlock
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
