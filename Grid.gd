@@ -42,6 +42,8 @@ func createGrid(grid, gridHeight, gridWidth, gridBlockHeight, gridBlockWidth, up
 			gridBlock.connect("clicked", self, "_on_GridBlock_clicked")
 			add_child(gridBlock);
 			
+			grid[row][col] = gridBlock;
+			
 			# Update the xpos
 			currentGridBlockXPos += gridBlockWidth;
 			
