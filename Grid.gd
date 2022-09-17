@@ -68,8 +68,10 @@ func nextTurn():
 		if gridBlock.isSurrounded():
 			gridBlock.setState(gridBlock.STATES.DANGER1);
 	
+	print(availableShapes, "\n");
+	
 	# Move all available pieces up 1 slot
-	# If the top slot is has a shape, then delete that shape
+	# If the top slot has a shape, then delete that shape
 	if availableShapes[2] != null:
 		setShapeInAvailableShapes(availableShapes[2], -1, 2);
 	# if the middle slot has a shape, then move it to the top slot
@@ -78,15 +80,17 @@ func nextTurn():
 	# If the bottom slot has a shape, then move it to the middle slot
 	if availableShapes[0] != null:
 		setShapeInAvailableShapes(availableShapes[0], 1, 0);
+
 	# Add new shape to bottom
 	addRandomShapeToAvailable(0);
+	
+	print(availableShapes, "\n");
 
 # Adds a random shape to the given index
 #index=the index to add the shape to
 func addRandomShapeToAvailable(index) -> bool:
 	# If the index isn't free, then don't add a shape there
 	if (availableShapes[index] != null):
-		print("here ):")
 		return false
 	# Create and connect signals
 	var shape = getRandomShapeType().instance()
@@ -101,7 +105,6 @@ func addRandomShapeToAvailable(index) -> bool:
 	
 	# Add to tree
 	add_child(shape);
-	print("Here!")
 	return true
 	
 # Puts a shape object into another  index
@@ -109,8 +112,9 @@ func addRandomShapeToAvailable(index) -> bool:
 func setShapeInAvailableShapes(shape, index, prevIndex = -1) -> bool:
 	# If the index is -1, then delete the shape
 	if (index == -1):
-		shape.queue_free();
+		index = availableShapes.find(shape);
 		availableShapes[index] = null;
+		shape.queue_free();
 		return true;
 	
 	# If the slot isn't available, don't add a shape
@@ -246,5 +250,5 @@ func _on_GridBlock_clicked():
 # Called when a shape is placed
 func _on_Shape_placed(shape):
 	# Delete the shape, then start the next turn
-	setShapeInAvailableShapes(shape, 0, -1);
+	setShapeInAvailableShapes(shape, -1);
 	nextTurn();
