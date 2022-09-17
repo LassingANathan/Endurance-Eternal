@@ -2,6 +2,7 @@ extends Node
 
 export (PackedScene) var GridBlock;
 export (PackedScene) var ShapeShortL;
+export (PackedScene) var ShapeReverseShortL;
 
 ## Constants
 export (int) var gridWidth := 0; # In gridblocks
@@ -35,6 +36,14 @@ func _ready():
 	# Give grid
 	shape.grid = grid;
 	add_child(shape);
+	
+	# Spawn a shape off to the left
+	var shape1 = ShapeReverseShortL.instance();
+	shape1.global_position = Vector2(100, 125);
+	shape1.connect("placed", self, "_on_Shape_placed");
+	# Give grid
+	shape1.grid = grid;
+	add_child(shape1);
 
 # Called at the beginning of every turn
 func nextTurn():
