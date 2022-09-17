@@ -20,7 +20,7 @@ var grid := [];
 var clickAdvancesTurn := false; # boolean for whether clicks should advance a turn. Allows the starting fill block to be filled without advancing a turn
 var availableShapes := [null, null, null]; # Holds the available shapes
 var dangerPointsThisCycle := 0; # Holds the number of dangerPoints accrued this cycle
-var dangerPointsNeeded := 6; # Holds the number of dangerPoints needed to advance this cycle
+var dangerPointsNeeded := 36; # Holds the number of dangerPoints needed to advance this cycle
 var cycleNumber := 1; # Holds the cycle number. Dictates how many blocks get filled per turn
 
 # Called when the node enters the scene tree for the first time.
@@ -286,8 +286,8 @@ func _on_dangerBlock_emptied(points):
 		cycleNumber += 1;
 		# Subtract points needed from points this cycle, to carry over any additional points
 		dangerPointsThisCycle -= dangerPointsNeeded
-		# Increase needed danger points by 2 every cycle
-		dangerPointsNeeded += 2
+		# Increase needed danger points every cycle
+		dangerPointsNeeded += 9
 
 # Called when a GridBlock's danger timer ends. Ends the game
 func _on_gameOver():

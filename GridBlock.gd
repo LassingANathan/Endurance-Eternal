@@ -50,13 +50,18 @@ func clicked():
 func setState(newState : int):
 	match newState:
 		STATES.EMPTY:
-			# If the previous state was a dangerState, then give points
-			if (state == STATES.DANGER1):
+			# Give points based on previous state (danger, or just filled)
+			if (state == STATES.FILLED):
 				emit_signal("dangerBlock_emptied", 1);
-			elif (state == STATES.DANGER2):
-				emit_signal("dangerBlock_emptied", 2);
-			elif (state == STATES.DANGER3):
+			elif (state == STATES.DANGER1):
 				emit_signal("dangerBlock_emptied", 3);
+				print("Got 3")
+			elif (state == STATES.DANGER2):
+				emit_signal("dangerBlock_emptied", 6);
+				print('Got 6')
+			elif (state == STATES.DANGER3):
+				print("Got 9")
+				emit_signal("dangerBlock_emptied", 9);
 				
 			$AnimatedSprite.animation = "empty";
 			# Remove from all other groups
