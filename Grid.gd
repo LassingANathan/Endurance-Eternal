@@ -19,6 +19,9 @@ var AVAILABLE_SHAPES_POSITIONS = [Vector2(95, 250), Vector2(95, 200), Vector2(95
 var grid := [];
 var clickAdvancesTurn := false; # boolean for whether clicks should advance a turn. Allows the starting fill block to be filled without advancing a turn
 var availableShapes := [null, null, null]; # Holds the available shapes
+var dangerPointsThisCycle := 0; # Holds the number of dangerPoints accrued this cycle
+var dangerPointsNeeded := 36; # Holds the number of dangerPoints needed to advance this cycle
+var cycleNumber := 1; # Holds the cycle number. Dictates how many blocks get filled per turn
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -41,32 +44,53 @@ func _ready():
 
 # Called at the beginning of every turn
 func nextTurn():
-	# Get all blocks to fill and fill them
+	print(dangerPointsThisCycle)
+	# Get rng
+	var rand = RandomNumberGenerator.new();
+	rand.randomize();
+	
+	# Get all blocks from fillNext and fill them
 	var blocksToFill = get_tree().get_nodes_in_group("fillNext");
 	for block in blocksToFill:
 		block.setState(block.STATES.FILLED);
 	
-	# Find a new block to set as fillNext
-	var rand = RandomNumberGenerator.new();
+	# Find an amount of fillNext blocks, equal to the cycleNumber
+	for i in range(cycleNumber):
+		var filledBlocks = get_tree().get_nodes_in_group("filled");
+		var newFillNextBlock = null;
+		# Keep attempting to find a new fillNext GridBlock until one is found
+		while newFillNextBlock == null:
+			# Get all currently filled blocks
+			filledBlocks = get_tree().get_nodes_in_group("filled");
+			
+			# Find a random empty GridBlock near a random filled GridBlocklock
+			newFillNextBlock = findNearbyEmptyGridBlock(filledBlocks[rand.randi_range(0, filledBlocks.size()-1)]);
+			
+			# If a random empty GridBlock near the random filled GridBlock was found, then set it to fillNext
+			if newFillNextBlock != null:
+				newFillNextBlock.setState(newFillNextBlock.STATES.FILL_NEXT);
+			
+	# Set danger GridBlocks that are no longer surrounded to filled state
+	var dangerBlocks = get_tree().get_nodes_in_group("danger");
+	for gridBlock in dangerBlocks:
+		if !gridBlock.isSurrounded():
+			gridBlock.setState(gridBlock.STATES.FILLED);
+	# Advance timer of GridBlocks that still remain
+	dangerBlocks = get_tree().get_nodes_in_group("danger");
+	for gridBlock in dangerBlocks:
+		gridBlock.advanceDanger();
+		
+	# Set GridBlocks that are surrounded to danger1 state
 	var filledBlocks = get_tree().get_nodes_in_group("filled");
-	var newFillNextBlock = null;
-	# Keep attempting to find a new fillNext GridBlock until one is found
-	while newFillNextBlock == null:
-		# Get all currently filled blocks
-		filledBlocks = get_tree().get_nodes_in_group("filled");
-		
-		# Find a random empty GridBlock near a random filled GridBlocklock
-		newFillNextBlock = findNearbyEmptyGridBlock(filledBlocks[rand.randi_range(0, filledBlocks.size()-1)]);
-		
-		# If a random empty GridBlock near the random filled GridBlock was found, then set it to fillNext
-		if newFillNextBlock != null:
-			newFillNextBlock.setState(newFillNextBlock.STATES.FILL_NEXT);
-	
-	# Set surrounded gridblocks to danger state
-	filledBlocks = get_tree().get_nodes_in_group("filled");
+	# Iterate through all filled blocks
 	for gridBlock in filledBlocks:
+		# If the filled block is already in the danger group, then go to next block
+		if gridBlock.is_in_group("danger"):
+			continue;
+		# If the filled block is surrounded and not in danger group, then set to danger1
 		if gridBlock.isSurrounded():
 			gridBlock.setState(gridBlock.STATES.DANGER1);
+	
 	
 	# Move all available pieces up 1 slot
 	# If the top slot has a shape and both beneath slots are full, then no shape was placed this turn and we delete the top shape
@@ -81,7 +105,6 @@ func nextTurn():
 
 	# Add new shape to bottom
 	addRandomShapeToAvailable(0);
-	
 
 # Adds a random shape to the given index
 #index=the index to add the shape to
@@ -219,6 +242,8 @@ func createGrid(grid, gridHeight, gridWidth, gridBlockHeight, gridBlockWidth, up
 			gridBlock.position = Vector2(currentGridBlockXPos, currentGridBlockYPos);
 			# Connect signals
 			gridBlock.connect("clicked", self, "_on_GridBlock_clicked");
+			gridBlock.connect("gameOver", self, "_on_gameOver");
+			gridBlock.connect("dangerBlock_emptied", self, "_on_dangerBlock_emptied");
 			# Give coordinates on grid
 			gridBlock.row = row;
 			gridBlock.col = col;
@@ -239,13 +264,31 @@ func createGrid(grid, gridHeight, gridWidth, gridBlockHeight, gridBlockWidth, up
 		# Update ypos after we're done with a row
 		currentGridBlockYPos += gridBlockHeight;
 
-# Called when a GridBlock is clicked
+# Called when a GridBlock is clicked, advances a turn if clickAdvancesTurn is true
 func _on_GridBlock_clicked():
 	if clickAdvancesTurn:
 		nextTurn();
 		
-# Called when a shape is placed
+# Called when a shape is placed. Removes that shape from available shapes
+#shape=the shape that was placed
 func _on_Shape_placed(shape):
 	# Delete the shape, then start the next turn
 	setShapeInAvailableShapes(shape, -1);
 	nextTurn();
+
+# Called when a block in a danger state is emptied. Gives points based on danger state
+#points=the amount of points to give
+func _on_dangerBlock_emptied(points):
+	dangerPointsThisCycle += points;
+	
+	# If the player has enough dangerPoints, then advance to next cycle
+	if (dangerPointsThisCycle >= dangerPointsNeeded):
+		cycleNumber += 1;
+		# Subtract points needed from points this cycle, to carry over any additional points
+		dangerPointsThisCycle -= dangerPointsNeeded
+		# Increase needed danger points every cycle
+		dangerPointsNeeded += 9
+
+# Called when a GridBlock's danger timer ends. Ends the game
+func _on_gameOver():
+	get_tree().quit();

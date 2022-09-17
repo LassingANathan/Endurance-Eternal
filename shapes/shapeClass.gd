@@ -57,7 +57,7 @@ func _on_input_event(viewport, event, shape_idx):
 		# If the event is the left button being pressed, then move to grabbed state
 		if event.button_index == BUTTON_LEFT and event.is_pressed():
 			state = STATES.GRABBED;
-		# If the event is the left button being released, then move to idle state
+		# If the event is the left button being released, then place shape or move to idle state
 		elif event.button_index == BUTTON_LEFT and event.is_action_released("ui_left_mouse"):
 			# Iterate through the grid to see if the shape has been released on a GridBlock
 			for row in range(gridHeight):

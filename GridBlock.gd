@@ -3,6 +3,8 @@ extends Area2D
 ## Signals
 # Emitted when clicked.
 signal clicked()
+signal gameOver()
+signal dangerBlock_emptied(points)
 
 ## Constants
 #empty=black, filled=white, fillNext=will be filled next turn
@@ -21,6 +23,76 @@ var mouseEntered := false; # Holds whether or not the mouse is currently touchin
 func _ready():
 	pass
 
+# Called on every block in the danger group at the end of a turn. Advances the danger state
+func advanceDanger() -> bool:
+	if state != STATES.DANGER1 and state != STATES.DANGER2 and state != STATES.DANGER3:
+		return false;
+	
+	if (self.state == STATES.DANGER3):
+		emit_signal("gameOver");
+	if (self.state == STATES.DANGER2):
+		self.setState(STATES.DANGER3);
+		return true;
+	if (self.state == STATES.DANGER1):
+		self.setState(STATES.DANGER2);
+		return true;
+	
+	return true;
+
+# Called by __on_GridBlock_input_event() when the GridBlock is left clicked
+func clicked():
+	# Change to filled state
+	self.setState(STATES.FILLED);
+	emit_signal("clicked")
+
+# Updates the GridBlock's state to the new given state
+#newState=the STATES value of the new state
+func setState(newState : int):
+	match newState:
+		STATES.EMPTY:
+			# Give points based on previous state (danger, or just filled)
+			if (state == STATES.FILLED):
+				emit_signal("dangerBlock_emptied", 1);
+			elif (state == STATES.DANGER1):
+				emit_signal("dangerBlock_emptied", 3);
+				print("Got 3")
+			elif (state == STATES.DANGER2):
+				emit_signal("dangerBlock_emptied", 6);
+				print('Got 6')
+			elif (state == STATES.DANGER3):
+				print("Got 9")
+				emit_signal("dangerBlock_emptied", 9);
+				
+			$AnimatedSprite.animation = "empty";
+			# Remove from all other groups
+			if self.is_in_group("filled"):
+				self.remove_from_group("filled");
+			if self.is_in_group("danger"):
+				self.remove_from_group("danger")
+		STATES.FILLED:
+			$AnimatedSprite.animation = "filled";
+			self.add_to_group("filled");
+			# Remove from all other groups
+			if self.is_in_group("fillNext"):
+				self.remove_from_group("fillNext")
+			if self.is_in_group("danger"):
+				self.remove_from_group("danger")
+		# NOTE: Danger states count as filled, so they are not removed from filled group
+		STATES.DANGER1:
+			$AnimatedSprite.animation = "danger1";
+			self.add_to_group("danger")
+			# Remove from fillNext group
+			if self.is_in_group("fillNext"):
+				self.remove_from_group("fillNext")
+		STATES.DANGER2:
+			$AnimatedSprite.animation = "danger2";
+		STATES.DANGER3:
+			$AnimatedSprite.animation = "danger3";
+		STATES.FILL_NEXT:
+			$AnimatedSprite.animation = "fillNext";
+			self.add_to_group("fillNext");
+	state = newState
+
 # Returns true if all 8 GridBlocks surrounding this GridBlock is filled
 func isSurrounded() -> bool:
 	# If on borders, this GridBlock can never be surrounded
@@ -33,37 +105,6 @@ func isSurrounded() -> bool:
 		return grid[row-1][col-1] in filledBlocks and grid[row-1][col] in filledBlocks and grid[row-1][col+1] in filledBlocks \
 		   and grid[row][col-1] in filledBlocks and grid[row][col+1] in filledBlocks \
 		   and grid[row+1][col-1] in filledBlocks and grid[row+1][col] in filledBlocks and grid[row+1][col+1] in filledBlocks;
-
-# Called by __on_GridBlock_input_event() when the GridBlock is left clicked
-func clicked():
-	# Change to filled state
-	self.setState(STATES.FILLED);
-	emit_signal("clicked")
-
-# Updates the GridBlock's state to the new given state
-#newState=the STATES value of the new state
-func setState(newState : int):
-	state = newState
-	match newState:
-		STATES.EMPTY:
-			$AnimatedSprite.animation = "empty";
-			if self.is_in_group("filled"):
-				self.remove_from_group("filled");
-		STATES.FILLED:
-			$AnimatedSprite.animation = "filled";
-			self.add_to_group("filled");
-			if self.is_in_group("fillNext"):
-				self.remove_from_group("fillNext")
-		# NOTE: Danger states count as filled, so they are not removed from filled group
-		STATES.DANGER1:
-			$AnimatedSprite.animation = "danger1";
-		STATES.DANGER2:
-			$AnimatedSprite.animation = "danger2";
-		STATES.DANGER3:
-			$AnimatedSprite.animation = "danger3";
-		STATES.FILL_NEXT:
-			$AnimatedSprite.animation = "fillNext";
-			self.add_to_group("fillNext");
 
 # Called when an input event happens within this GridBlock
 func _on_GridBlock_input_event(viewport, event, shape_idx):
