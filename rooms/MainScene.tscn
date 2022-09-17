@@ -1,14 +1,16 @@
-[gd_scene load_steps=4 format=2]
+[gd_scene load_steps=5 format=2]
 
 [ext_resource path="res://Grid.tscn" type="PackedScene" id=1]
 [ext_resource path="res://shapes/ShapeShortL.tscn" type="PackedScene" id=2]
 [ext_resource path="res://shapes/ShapeReverseShortL.tscn" type="PackedScene" id=3]
+[ext_resource path="res://shapes/ShapeI.tscn" type="PackedScene" id=4]
 
 [node name="MainRoom" type="Node"]
 
 [node name="Grid" parent="." instance=ExtResource( 1 )]
 ShapeShortL = ExtResource( 2 )
 ShapeReverseShortL = ExtResource( 3 )
+ShapeI = ExtResource( 4 )
 
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
