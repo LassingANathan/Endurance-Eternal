@@ -61,18 +61,27 @@ func nextTurn():
 		# If a random empty GridBlock near the random filled GridBlock was found, then set it to fillNext
 		if newFillNextBlock != null:
 			newFillNextBlock.setState(newFillNextBlock.STATES.FILL_NEXT);
-	
-	# Set surrounded GridBlocks to danger state
-	filledBlocks = get_tree().get_nodes_in_group("filled");
-	for gridBlock in filledBlocks:
-		if gridBlock.isSurrounded():
-			gridBlock.setState(gridBlock.STATES.DANGER1);
 			
 	# Set danger GridBlocks that are no longer surrounded to filled state
 	var dangerBlocks = get_tree().get_nodes_in_group("danger");
 	for gridBlock in dangerBlocks:
 		if !gridBlock.isSurrounded():
 			gridBlock.setState(gridBlock.STATES.FILLED);
+	# Advance timer of GridBlocks that still remain
+	dangerBlocks = get_tree().get_nodes_in_group("danger");
+	for gridBlock in dangerBlocks:
+		gridBlock.advanceDanger();
+		
+	# Set GridBlocks that are surrounded to danger1 state
+	filledBlocks = get_tree().get_nodes_in_group("filled");
+	# Iterate through all filled blocks
+	for gridBlock in filledBlocks:
+		# If the filled block is already in the danger group, then go to next block
+		if gridBlock.is_in_group("danger"):
+			continue;
+		# If the filled block is surrounded and not in danger group, then set to danger1
+		if gridBlock.isSurrounded():
+			gridBlock.setState(gridBlock.STATES.DANGER1);
 	
 	
 	# Move all available pieces up 1 slot
@@ -88,7 +97,6 @@ func nextTurn():
 
 	# Add new shape to bottom
 	addRandomShapeToAvailable(0);
-	
 
 # Adds a random shape to the given index
 #index=the index to add the shape to
@@ -226,6 +234,7 @@ func createGrid(grid, gridHeight, gridWidth, gridBlockHeight, gridBlockWidth, up
 			gridBlock.position = Vector2(currentGridBlockXPos, currentGridBlockYPos);
 			# Connect signals
 			gridBlock.connect("clicked", self, "_on_GridBlock_clicked");
+			gridBlock.connect("gameOver", self, "_on_gameOver");
 			# Give coordinates on grid
 			gridBlock.row = row;
 			gridBlock.col = col;
@@ -246,13 +255,18 @@ func createGrid(grid, gridHeight, gridWidth, gridBlockHeight, gridBlockWidth, up
 		# Update ypos after we're done with a row
 		currentGridBlockYPos += gridBlockHeight;
 
-# Called when a GridBlock is clicked
+# Called when a GridBlock is clicked, advances a turn if clickAdvancesTurn is true
 func _on_GridBlock_clicked():
 	if clickAdvancesTurn:
 		nextTurn();
 		
-# Called when a shape is placed
+# Called when a shape is placed. Removes that shape from available shapes
+#shape=the shape that was placed
 func _on_Shape_placed(shape):
 	# Delete the shape, then start the next turn
 	setShapeInAvailableShapes(shape, -1);
 	nextTurn();
+
+# Called when a GridBlock's danger timer ends. Ends the game
+func _on_gameOver():
+	get_tree().quit();

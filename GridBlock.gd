@@ -3,6 +3,7 @@ extends Area2D
 ## Signals
 # Emitted when clicked.
 signal clicked()
+signal gameOver()
 
 ## Constants
 #empty=black, filled=white, fillNext=will be filled next turn
@@ -21,18 +22,21 @@ var mouseEntered := false; # Holds whether or not the mouse is currently touchin
 func _ready():
 	pass
 
-# Returns true if all 8 GridBlocks surrounding this GridBlock is filled
-func isSurrounded() -> bool:
-	# If on borders, this GridBlock can never be surrounded
-	if (row == 0 or col == 0 or row == gridHeight - 1 or col == gridWidth - 1):
-		return false
-	else:
-		# Get all filled blocks (includes danger blocks)
-		var filledBlocks = get_tree().get_nodes_in_group("filled");
-		# Return true if all 8 surrounding GridBlocks are filled
-		return grid[row-1][col-1] in filledBlocks and grid[row-1][col] in filledBlocks and grid[row-1][col+1] in filledBlocks \
-		   and grid[row][col-1] in filledBlocks and grid[row][col+1] in filledBlocks \
-		   and grid[row+1][col-1] in filledBlocks and grid[row+1][col] in filledBlocks and grid[row+1][col+1] in filledBlocks;
+# Called on every block in the danger group at the end of a turn. Advances the danger state
+func advanceDanger() -> bool:
+	if state != STATES.DANGER1 and state != STATES.DANGER2 and state != STATES.DANGER3:
+		return false;
+	
+	if (self.state == STATES.DANGER3):
+		emit_signal("gameOver");
+	if (self.state == STATES.DANGER2):
+		self.setState(STATES.DANGER3);
+		return true;
+	if (self.state == STATES.DANGER1):
+		self.setState(STATES.DANGER2);
+		return true;
+	
+	return true;
 
 # Called by __on_GridBlock_input_event() when the GridBlock is left clicked
 func clicked():
@@ -74,6 +78,19 @@ func setState(newState : int):
 		STATES.FILL_NEXT:
 			$AnimatedSprite.animation = "fillNext";
 			self.add_to_group("fillNext");
+
+# Returns true if all 8 GridBlocks surrounding this GridBlock is filled
+func isSurrounded() -> bool:
+	# If on borders, this GridBlock can never be surrounded
+	if (row == 0 or col == 0 or row == gridHeight - 1 or col == gridWidth - 1):
+		return false
+	else:
+		# Get all filled blocks (includes danger blocks)
+		var filledBlocks = get_tree().get_nodes_in_group("filled");
+		# Return true if all 8 surrounding GridBlocks are filled
+		return grid[row-1][col-1] in filledBlocks and grid[row-1][col] in filledBlocks and grid[row-1][col+1] in filledBlocks \
+		   and grid[row][col-1] in filledBlocks and grid[row][col+1] in filledBlocks \
+		   and grid[row+1][col-1] in filledBlocks and grid[row+1][col] in filledBlocks and grid[row+1][col+1] in filledBlocks;
 
 # Called when an input event happens within this GridBlock
 func _on_GridBlock_input_event(viewport, event, shape_idx):
