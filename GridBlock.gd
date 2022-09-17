@@ -4,6 +4,7 @@ extends Area2D
 # Emitted when clicked.
 signal clicked()
 signal gameOver()
+signal dangerBlock_emptied(points)
 
 ## Constants
 #empty=black, filled=white, fillNext=will be filled next turn
@@ -47,9 +48,16 @@ func clicked():
 # Updates the GridBlock's state to the new given state
 #newState=the STATES value of the new state
 func setState(newState : int):
-	state = newState
 	match newState:
 		STATES.EMPTY:
+			# If the previous state was a dangerState, then give points
+			if (state == STATES.DANGER1):
+				emit_signal("dangerBlock_emptied", 1);
+			elif (state == STATES.DANGER2):
+				emit_signal("dangerBlock_emptied", 2);
+			elif (state == STATES.DANGER3):
+				emit_signal("dangerBlock_emptied", 3);
+				
 			$AnimatedSprite.animation = "empty";
 			# Remove from all other groups
 			if self.is_in_group("filled"):
@@ -78,6 +86,7 @@ func setState(newState : int):
 		STATES.FILL_NEXT:
 			$AnimatedSprite.animation = "fillNext";
 			self.add_to_group("fillNext");
+	state = newState
 
 # Returns true if all 8 GridBlocks surrounding this GridBlock is filled
 func isSurrounded() -> bool:
