@@ -1,6 +1,9 @@
 extends Node
 
 export (PackedScene) var GridBlock;
+export (PackedScene) var ShapeShortL;
+export (PackedScene) var ShapeReverseShortL;
+export (PackedScene) var ShapeI;
 
 ## Constants
 export (int) var gridWidth := 0; # In gridblocks
@@ -8,14 +11,20 @@ export (int) var gridHeight := 0; # In gridblocks
 export (int) var gridBlockWidth := 0; # In pixels
 export (int) var gridBlockHeight := 0; # In pixels
 
+var ALL_SHAPES = [] # Holds every shape in the game, instantiated in _ready()
+
+var AVAILABLE_SHAPES_POSITIONS = [Vector2(95, 250), Vector2(95, 200), Vector2(95, 150)] # Holds the global coordinates of the shapes that are available
+
 ## Variables
 var grid := [];
 var clickAdvancesTurn := false; # boolean for whether clicks should advance a turn. Allows the starting fill block to be filled without advancing a turn
+var availableShapes := [null, null, null]; # Holds the available shapes
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	# Fill the grid with GridBlocks
 	createGrid(grid, gridHeight, gridWidth, gridBlockHeight, gridBlockWidth, Vector2(161,60));
+	ALL_SHAPES = [ShapeShortL, ShapeReverseShortL, ShapeI]
 
 	# Choose a random GridBlock to set as filled at the start
 	var rand = RandomNumberGenerator.new();
@@ -25,14 +34,17 @@ func _ready():
 	
 	# Get the gridBlock to fill on the next turn
 	var gridBlockToFillNextTurn = findNearbyEmptyGridBlock(startingGridBlock);
-	gridBlockToFillNextTurn.changeState(gridBlockToFillNextTurn.STATES.FILL_NEXT);
+	gridBlockToFillNextTurn.setState(gridBlockToFillNextTurn.STATES.FILL_NEXT);
+	
+	# Generate random starting shape in availableShapes
+	addRandomShapeToAvailable(0);
 
 # Called at the beginning of every turn
 func nextTurn():
 	# Get all blocks to fill and fill them
 	var blocksToFill = get_tree().get_nodes_in_group("fillNext");
 	for block in blocksToFill:
-		block.changeState(block.STATES.FILLED);
+		block.setState(block.STATES.FILLED);
 	
 	# Find a new block to set as fillNext
 	var rand = RandomNumberGenerator.new();
@@ -48,14 +60,83 @@ func nextTurn():
 		
 		# If a random empty GridBlock near the random filled GridBlock was found, then set it to fillNext
 		if newFillNextBlock != null:
-			newFillNextBlock.changeState(newFillNextBlock.STATES.FILL_NEXT);
+			newFillNextBlock.setState(newFillNextBlock.STATES.FILL_NEXT);
 	
 	# Set surrounded gridblocks to danger state
 	filledBlocks = get_tree().get_nodes_in_group("filled");
 	for gridBlock in filledBlocks:
 		if gridBlock.isSurrounded():
-			gridBlock.changeState(gridBlock.STATES.DANGER1);
+			gridBlock.setState(gridBlock.STATES.DANGER1);
+	
+	# Move all available pieces up 1 slot
+	# If the top slot has a shape and both beneath slots are full, then no shape was placed this turn and we delete the top shape
+	if availableShapes[2] != null and availableShapes[1] != null and availableShapes[0] != null:
+		setShapeInAvailableShapes(availableShapes[2], -1, 2);
+	# if the middle slot has a shape and there's a shape underneath it, then either the top shape was placed or erased, move the middle shape to the top
+	if availableShapes[1] != null and availableShapes[0] != null:
+		setShapeInAvailableShapes(availableShapes[1], 2, 1);
+	# If the bottom slot has a shape, then move it to the middle slot
+	if availableShapes[0] != null:
+		setShapeInAvailableShapes(availableShapes[0], 1, 0);
 
+	# Add new shape to bottom
+	addRandomShapeToAvailable(0);
+	
+
+# Adds a random shape to the given index
+#index=the index to add the shape to
+func addRandomShapeToAvailable(index) -> bool:
+	# If the index isn't free, then don't add a shape there
+	if (availableShapes[index] != null):
+		return false
+	# Create and connect signals
+	var shape = getRandomShapeType().instance()
+	shape.connect("placed", self, "_on_Shape_placed");
+	# Give grid
+	shape.grid = grid;
+	# Set the global and resting positions
+	shape.global_position = AVAILABLE_SHAPES_POSITIONS[index];
+	shape.restingPos = AVAILABLE_SHAPES_POSITIONS[index];
+	
+	availableShapes[index] = shape;
+	
+	# Add to tree
+	add_child(shape);
+	return true
+	
+# Puts a shape object into another  index
+#shape=the shape to add, index=the index to add it to. -1 means delete the shape, prevIndex=the previous index of the given shape, -1 means it doesn't exist
+func setShapeInAvailableShapes(shape, index, prevIndex = -1) -> bool:
+	# If the index is -1, then delete the shape
+	if (index == -1):
+		index = availableShapes.find(shape);
+		availableShapes[index] = null;
+		shape.queue_free();
+		return true;
+	
+	# If the slot isn't available, don't add a shape
+	if availableShapes[index] != null:
+		return false;
+	
+	# Set the global position and resting position of the new shape
+	shape.global_position = AVAILABLE_SHAPES_POSITIONS[index];
+	shape.restingPos = AVAILABLE_SHAPES_POSITIONS[index];
+	
+	# Put the shape in the availableShape list
+	availableShapes[index] = shape;
+	
+	# If the previous index is not -1 (i.e., a value was given for prevIndex), then set the previous index to null
+	if prevIndex != -1:
+		availableShapes[prevIndex] = null;
+	
+	return true;
+
+# Returns a random shape type
+func getRandomShapeType():
+	var rand = RandomNumberGenerator.new();
+	rand.randomize();
+	
+	return ALL_SHAPES[rand.randi_range(0, ALL_SHAPES.size()-1)]
 
 # Returns an empty GridBlock near the given GridBlock, or null if none exist
 #gridBlock=the GridBlock to search near
@@ -111,7 +192,6 @@ func findNearbyEmptyGridBlock(gridBlock):
 			
 	return null
 	
-
 # Instantiates the grid with GridBlocks
 #grid: variable to store grid in
 #gridHeight, gridWidth: dimensions of the grid, in GridBlocks
@@ -163,3 +243,9 @@ func createGrid(grid, gridHeight, gridWidth, gridBlockHeight, gridBlockWidth, up
 func _on_GridBlock_clicked():
 	if clickAdvancesTurn:
 		nextTurn();
+		
+# Called when a shape is placed
+func _on_Shape_placed(shape):
+	# Delete the shape, then start the next turn
+	setShapeInAvailableShapes(shape, -1);
+	nextTurn();

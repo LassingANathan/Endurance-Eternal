@@ -15,6 +15,7 @@ var row := -1; # The row of the GridBlock
 var gridWidth := -1; # The width of the grid in GridBlocks
 var gridHeight := -1; # The height of the grid in GridBlocks
 var grid := []; # The grid this GridBlock is a part of
+var mouseEntered := false; # Holds whether or not the mouse is currently touching the GridBlock
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
@@ -36,12 +37,12 @@ func isSurrounded() -> bool:
 # Called by __on_GridBlock_input_event() when the GridBlock is left clicked
 func clicked():
 	# Change to filled state
-	self.changeState(STATES.FILLED);
+	self.setState(STATES.FILLED);
 	emit_signal("clicked")
 
 # Updates the GridBlock's state to the new given state
 #newState=the STATES value of the new state
-func changeState(newState : int):
+func setState(newState : int):
 	state = newState
 	match newState:
 		STATES.EMPTY:
@@ -71,3 +72,11 @@ func _on_GridBlock_input_event(viewport, event, shape_idx):
 		# If the event is the left button being pressed, then the object was clicked
 		if event.button_index == BUTTON_LEFT and event.is_pressed():
 			self.clicked();
+
+# Called when the mouse enters this GridBlock
+func _on_GridBlock_mouse_entered():
+	mouseEntered = true;
+
+# Called when the mouse leaves this GridBlock
+func _on_GridBlock_mouse_exited():
+	mouseEntered = false;
