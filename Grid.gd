@@ -68,14 +68,12 @@ func nextTurn():
 		if gridBlock.isSurrounded():
 			gridBlock.setState(gridBlock.STATES.DANGER1);
 	
-	print(availableShapes, "\n");
-	
 	# Move all available pieces up 1 slot
-	# If the top slot has a shape, then delete that shape
-	if availableShapes[2] != null:
+	# If the top slot has a shape and both beneath slots are full, then no shape was placed this turn and we delete the top shape
+	if availableShapes[2] != null and availableShapes[1] != null and availableShapes[0] != null:
 		setShapeInAvailableShapes(availableShapes[2], -1, 2);
-	# if the middle slot has a shape, then move it to the top slot
-	if availableShapes[1] != null:
+	# if the middle slot has a shape and there's a shape underneath it, then either the top shape was placed or erased, move the middle shape to the top
+	if availableShapes[1] != null and availableShapes[0] != null:
 		setShapeInAvailableShapes(availableShapes[1], 2, 1);
 	# If the bottom slot has a shape, then move it to the middle slot
 	if availableShapes[0] != null:
@@ -84,7 +82,6 @@ func nextTurn():
 	# Add new shape to bottom
 	addRandomShapeToAvailable(0);
 	
-	print(availableShapes, "\n");
 
 # Adds a random shape to the given index
 #index=the index to add the shape to
