@@ -47,16 +47,26 @@ func setState(newState : int):
 	match newState:
 		STATES.EMPTY:
 			$AnimatedSprite.animation = "empty";
+			# Remove from all other groups
 			if self.is_in_group("filled"):
 				self.remove_from_group("filled");
+			if self.is_in_group("danger"):
+				self.remove_from_group("danger")
 		STATES.FILLED:
 			$AnimatedSprite.animation = "filled";
 			self.add_to_group("filled");
+			# Remove from all other groups
 			if self.is_in_group("fillNext"):
 				self.remove_from_group("fillNext")
+			if self.is_in_group("danger"):
+				self.remove_from_group("danger")
 		# NOTE: Danger states count as filled, so they are not removed from filled group
 		STATES.DANGER1:
 			$AnimatedSprite.animation = "danger1";
+			self.add_to_group("danger")
+			# Remove from fillNext group
+			if self.is_in_group("fillNext"):
+				self.remove_from_group("fillNext")
 		STATES.DANGER2:
 			$AnimatedSprite.animation = "danger2";
 		STATES.DANGER3:

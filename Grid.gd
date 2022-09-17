@@ -62,11 +62,18 @@ func nextTurn():
 		if newFillNextBlock != null:
 			newFillNextBlock.setState(newFillNextBlock.STATES.FILL_NEXT);
 	
-	# Set surrounded gridblocks to danger state
+	# Set surrounded GridBlocks to danger state
 	filledBlocks = get_tree().get_nodes_in_group("filled");
 	for gridBlock in filledBlocks:
 		if gridBlock.isSurrounded():
 			gridBlock.setState(gridBlock.STATES.DANGER1);
+			
+	# Set danger GridBlocks that are no longer surrounded to filled state
+	var dangerBlocks = get_tree().get_nodes_in_group("danger");
+	for gridBlock in dangerBlocks:
+		if !gridBlock.isSurrounded():
+			gridBlock.setState(gridBlock.STATES.FILLED);
+	
 	
 	# Move all available pieces up 1 slot
 	# If the top slot has a shape and both beneath slots are full, then no shape was placed this turn and we delete the top shape
