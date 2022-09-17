@@ -3,7 +3,7 @@ extends Area2D
 class_name ShapeClass
 
 # Signals
-signal placed()
+signal placed(shape)
 
 ## Constants
 #grabbed=currently being dragged by mouse
@@ -67,7 +67,7 @@ func _on_input_event(viewport, event, shape_idx):
 						# If the shape was placed, then return. Otherwise set state to idle and then return
 						var shapePlaced = placeShape(grid[row][col]);
 						if shapePlaced:
-							emit_signal("placed");
+							emit_signal("placed", self);
 							queue_free();
 						state = STATES.IDLE;
 						return
