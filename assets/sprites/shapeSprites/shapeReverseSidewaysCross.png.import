@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/shapeSidewaysReverseCross.png-7256e5068b0b74549817c8360e76a488.stex"
+path="res://.import/shapeReverseSidewaysCross.png-cc2611d6e52183d347687b93f7c3badc.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/shapeSprites/shapeSidewaysReverseCross.png"
-dest_files=[ "res://.import/shapeSidewaysReverseCross.png-7256e5068b0b74549817c8360e76a488.stex" ]
+source_file="res://assets/sprites/shapeSprites/shapeReverseSidewaysCross.png"
+dest_files=[ "res://.import/shapeReverseSidewaysCross.png-cc2611d6e52183d347687b93f7c3badc.stex" ]
 
 [params]
 
