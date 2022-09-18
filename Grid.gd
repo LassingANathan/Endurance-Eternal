@@ -13,20 +13,21 @@ export (int) var gridBlockHeight := 0; # In pixels
 
 var ALL_SHAPES = [] # Holds every shape in the game, instantiated in _ready()
 
-var AVAILABLE_SHAPES_POSITIONS = [Vector2(95, 250), Vector2(95, 200), Vector2(95, 150)] # Holds the global coordinates of the shapes that are available
+var AVAILABLE_SHAPES_POSITIONS = [Vector2(50, 275), Vector2(50, 225), Vector2(50, 175)] # Holds the global coordinates of the shapes that are available
 
 ## Variables
 var grid := [];
 var clickAdvancesTurn := false; # boolean for whether clicks should advance a turn. Allows the starting fill block to be filled without advancing a turn
 var availableShapes := [null, null, null]; # Holds the available shapes
 var dangerPointsThisCycle := 0; # Holds the number of dangerPoints accrued this cycle
+var dangerPointsTotal := 0; # Holds the total number of dangerPoints accrued
 var dangerPointsNeeded := 36; # Holds the number of dangerPoints needed to advance this cycle
 var cycleNumber := 1; # Holds the cycle number. Dictates how many blocks get filled per turn
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	# Fill the grid with GridBlocks
-	createGrid(grid, gridHeight, gridWidth, gridBlockHeight, gridBlockWidth, Vector2(161,60));
+	createGrid(grid, gridHeight, gridWidth, gridBlockHeight, gridBlockWidth, Vector2(100,145));
 	ALL_SHAPES = [ShapeShortL, ShapeReverseShortL, ShapeI]
 
 	# Choose a random GridBlock to set as filled at the start
@@ -280,6 +281,8 @@ func _on_Shape_placed(shape):
 #points=the amount of points to give
 func _on_dangerBlock_emptied(points):
 	dangerPointsThisCycle += points;
+	dangerPointsTotal += points;
+	$ScoreCounter.text = str("Points \n", dangerPointsTotal);
 	
 	# If the player has enough dangerPoints, then advance to next cycle
 	if (dangerPointsThisCycle >= dangerPointsNeeded):
