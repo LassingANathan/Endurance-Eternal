@@ -40,15 +40,43 @@ ShapeDiagonal = ExtResource( 12 )
 ShapeReverseDiagonal = ExtResource( 13 )
 
 [node name="ScoreCounter" type="Label" parent="Grid"]
-margin_left = 96.0
-margin_top = 107.0
-margin_right = 149.0
-margin_bottom = 142.0
+margin_left = 24.0
+margin_top = 310.0
+margin_right = 77.0
+margin_bottom = 345.0
 custom_colors/font_outline_modulate = Color( 0, 0, 0, 0 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
 custom_fonts/font = SubResource( 1 )
-text = "points
+text = "points:
 0"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NextCycleCounter" type="Label" parent="Grid"]
+margin_left = 99.0
+margin_top = 310.0
+margin_right = 202.0
+margin_bottom = 345.0
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 0 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
+custom_fonts/font = SubResource( 1 )
+text = "next level:
+36"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CycleCounter" type="Label" parent="Grid"]
+margin_left = 221.0
+margin_top = 310.0
+margin_right = 324.0
+margin_bottom = 345.0
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 0 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
+custom_fonts/font = SubResource( 1 )
+text = "Level:
+1"
 __meta__ = {
 "_edit_use_anchors_": false
 }

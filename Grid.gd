@@ -304,7 +304,6 @@ func _on_Shape_placed(shape):
 func _on_dangerBlock_emptied(points):
 	dangerPointsThisCycle += points;
 	dangerPointsTotal += points;
-	$ScoreCounter.text = str("Points \n", dangerPointsTotal);
 	
 	# If the player has enough dangerPoints, then advance to next cycle
 	if (dangerPointsThisCycle >= dangerPointsNeeded):
@@ -313,6 +312,11 @@ func _on_dangerBlock_emptied(points):
 		dangerPointsThisCycle -= dangerPointsNeeded
 		# Increase needed danger points every cycle
 		dangerPointsNeeded += 9
+		
+	# Update text
+	$ScoreCounter.text = str("Points: \n", dangerPointsTotal);
+	$NextCycleCounter.text = str("Next Level In: \n", str(dangerPointsNeeded-dangerPointsThisCycle));
+	$CycleCounter.text = str("Level: \n", cycleNumber);
 
 # Called when a GridBlock's danger timer ends. Ends the game
 func _on_gameOver():
