@@ -10,6 +10,7 @@ export (PackedScene) var ShapeReverseL;
 export (PackedScene) var ShapeCross;
 export (PackedScene) var ShapeSidewaysCross;
 export (PackedScene) var ShapeReverseSidewaysCross;
+export (PackedScene) var ShapeDiagonal;
 
 ## Constants
 export (int) var gridWidth := 0; # In gridblocks
@@ -35,7 +36,7 @@ func _ready():
 	# Fill the grid with GridBlocks
 	createGrid(grid, gridHeight, gridWidth, gridBlockHeight, gridBlockWidth, Vector2(100,145));
 	ALL_SHAPES = [ShapeShortL, ShapeReverseShortL, ShapeI, ShapeSidewaysI, ShapeL, ShapeReverseL, ShapeCross, ShapeSidewaysCross, \
-	ShapeReverseSidewaysCross]
+	ShapeReverseSidewaysCross, ShapeDiagonal]
 
 	# Choose a random GridBlock to set as filled at the start
 	var rand = RandomNumberGenerator.new();
