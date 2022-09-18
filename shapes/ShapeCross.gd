@@ -4,9 +4,9 @@ extends "res://shapes/shapeClass.gd"
 func _ready():
 	# Set all distances
 	disFromMainToTop = 2;
-	disFromMainToRight = 0;
+	disFromMainToRight = 1;
 	disFromMainToBottom = 1;
-	disFromMainToLeft = 0;
+	disFromMainToLeft = 1;
 	._ready();
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
