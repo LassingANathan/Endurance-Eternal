@@ -1,4 +1,4 @@
-[gd_scene load_steps=10 format=2]
+[gd_scene load_steps=28 format=2]
 
 [ext_resource path="res://assets/sprites/gridBlockSprites/gridBlockEmptySpriteSheet.png" type="Texture" id=1]
 [ext_resource path="res://assets/sprites/gridBlockSprites/gridBlockFillNextSpriteSheet.png" type="Texture" id=2]
@@ -7,6 +7,78 @@
 [ext_resource path="res://assets/sprites/gridBlockSprites/gridBlockFilledSpriteSheet.png" type="Texture" id=5]
 [ext_resource path="res://assets/sprites/gridBlockSprites/gridBlockDanger1SpriteSheet.png" type="Texture" id=6]
 [ext_resource path="res://GridBlock.gd" type="Script" id=7]
+
+[sub_resource type="AtlasTexture" id=8]
+atlas = ExtResource( 6 )
+region = Rect2( 0, 0, 10, 10 )
+
+[sub_resource type="AtlasTexture" id=9]
+atlas = ExtResource( 6 )
+region = Rect2( 10, 0, 10, 10 )
+
+[sub_resource type="AtlasTexture" id=10]
+atlas = ExtResource( 6 )
+region = Rect2( 20, 0, 10, 10 )
+
+[sub_resource type="AtlasTexture" id=11]
+atlas = ExtResource( 6 )
+region = Rect2( 30, 0, 10, 10 )
+
+[sub_resource type="AtlasTexture" id=12]
+atlas = ExtResource( 6 )
+region = Rect2( 40, 0, 10, 10 )
+
+[sub_resource type="AtlasTexture" id=13]
+atlas = ExtResource( 6 )
+region = Rect2( 50, 0, 10, 10 )
+
+[sub_resource type="AtlasTexture" id=14]
+atlas = ExtResource( 6 )
+region = Rect2( 60, 0, 10, 10 )
+
+[sub_resource type="AtlasTexture" id=15]
+atlas = ExtResource( 4 )
+region = Rect2( 0, 0, 10, 10 )
+
+[sub_resource type="AtlasTexture" id=16]
+atlas = ExtResource( 4 )
+region = Rect2( 10, 0, 10, 10 )
+
+[sub_resource type="AtlasTexture" id=17]
+atlas = ExtResource( 4 )
+region = Rect2( 20, 0, 10, 10 )
+
+[sub_resource type="AtlasTexture" id=18]
+atlas = ExtResource( 4 )
+region = Rect2( 30, 0, 10, 10 )
+
+[sub_resource type="AtlasTexture" id=19]
+atlas = ExtResource( 4 )
+region = Rect2( 40, 0, 10, 10 )
+
+[sub_resource type="AtlasTexture" id=20]
+atlas = ExtResource( 4 )
+region = Rect2( 50, 0, 10, 10 )
+
+[sub_resource type="AtlasTexture" id=21]
+atlas = ExtResource( 4 )
+region = Rect2( 60, 0, 10, 10 )
+
+[sub_resource type="AtlasTexture" id=25]
+atlas = ExtResource( 3 )
+region = Rect2( 30, 0, 10, 10 )
+
+[sub_resource type="AtlasTexture" id=26]
+atlas = ExtResource( 3 )
+region = Rect2( 40, 0, 10, 10 )
+
+[sub_resource type="AtlasTexture" id=27]
+atlas = ExtResource( 3 )
+region = Rect2( 50, 0, 10, 10 )
+
+[sub_resource type="AtlasTexture" id=28]
+atlas = ExtResource( 3 )
+region = Rect2( 60, 0, 10, 10 )
 
 [sub_resource type="SpriteFrames" id=6]
 animations = [ {
@@ -20,25 +92,25 @@ animations = [ {
 "name": "filled",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 6 ) ],
+"frames": [ SubResource( 8 ), SubResource( 9 ), SubResource( 10 ), SubResource( 11 ), SubResource( 12 ), SubResource( 13 ), SubResource( 14 ) ],
 "loop": true,
 "name": "danger1",
-"speed": 5.0
+"speed": 2.0
+}, {
+"frames": [ SubResource( 15 ), SubResource( 15 ), SubResource( 16 ), SubResource( 17 ), SubResource( 15 ), SubResource( 18 ), SubResource( 15 ), SubResource( 19 ), SubResource( 20 ), SubResource( 21 ), SubResource( 20 ), SubResource( 19 ) ],
+"loop": true,
+"name": "danger2",
+"speed": 4.0
 }, {
 "frames": [ ExtResource( 2 ) ],
 "loop": true,
 "name": "fillNext",
 "speed": 5.0
 }, {
-"frames": [ ExtResource( 3 ) ],
+"frames": [ SubResource( 25 ), SubResource( 26 ), SubResource( 27 ), SubResource( 28 ), SubResource( 27 ), SubResource( 26 ), SubResource( 26 ), SubResource( 27 ), SubResource( 28 ), SubResource( 28 ), SubResource( 27 ), SubResource( 26 ), SubResource( 25 ) ],
 "loop": true,
 "name": "danger3",
-"speed": 5.0
-}, {
-"frames": [ ExtResource( 4 ) ],
-"loop": true,
-"name": "danger2",
-"speed": 5.0
+"speed": 3.0
 } ]
 
 [sub_resource type="RectangleShape2D" id=7]
@@ -50,6 +122,8 @@ script = ExtResource( 7 )
 [node name="AnimatedSprite" type="AnimatedSprite" parent="."]
 frames = SubResource( 6 )
 animation = "empty"
+speed_scale = 3.0
+playing = true
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="."]
 shape = SubResource( 7 )
