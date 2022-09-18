@@ -36,6 +36,22 @@ region = Rect2( 50, 0, 10, 10 )
 atlas = ExtResource( 6 )
 region = Rect2( 60, 0, 10, 10 )
 
+[sub_resource type="AtlasTexture" id=25]
+atlas = ExtResource( 3 )
+region = Rect2( 30, 0, 10, 10 )
+
+[sub_resource type="AtlasTexture" id=26]
+atlas = ExtResource( 3 )
+region = Rect2( 40, 0, 10, 10 )
+
+[sub_resource type="AtlasTexture" id=27]
+atlas = ExtResource( 3 )
+region = Rect2( 50, 0, 10, 10 )
+
+[sub_resource type="AtlasTexture" id=28]
+atlas = ExtResource( 3 )
+region = Rect2( 60, 0, 10, 10 )
+
 [sub_resource type="AtlasTexture" id=17]
 atlas = ExtResource( 4 )
 region = Rect2( 20, 0, 10, 10 )
@@ -60,22 +76,6 @@ region = Rect2( 50, 0, 10, 10 )
 atlas = ExtResource( 4 )
 region = Rect2( 60, 0, 10, 10 )
 
-[sub_resource type="AtlasTexture" id=25]
-atlas = ExtResource( 3 )
-region = Rect2( 30, 0, 10, 10 )
-
-[sub_resource type="AtlasTexture" id=26]
-atlas = ExtResource( 3 )
-region = Rect2( 40, 0, 10, 10 )
-
-[sub_resource type="AtlasTexture" id=27]
-atlas = ExtResource( 3 )
-region = Rect2( 50, 0, 10, 10 )
-
-[sub_resource type="AtlasTexture" id=28]
-atlas = ExtResource( 3 )
-region = Rect2( 60, 0, 10, 10 )
-
 [sub_resource type="SpriteFrames" id=6]
 animations = [ {
 "frames": [ ExtResource( 1 ) ],
@@ -93,6 +93,11 @@ animations = [ {
 "name": "danger1",
 "speed": 2.0
 }, {
+"frames": [ SubResource( 25 ), SubResource( 26 ), SubResource( 27 ), SubResource( 28 ), SubResource( 27 ), SubResource( 26 ), SubResource( 26 ), SubResource( 27 ), SubResource( 28 ), SubResource( 28 ), SubResource( 27 ), SubResource( 26 ), SubResource( 25 ) ],
+"loop": true,
+"name": "danger3",
+"speed": 3.0
+}, {
 "frames": [ SubResource( 17 ), SubResource( 15 ), SubResource( 18 ), SubResource( 15 ), SubResource( 19 ), SubResource( 20 ), SubResource( 21 ), SubResource( 20 ), SubResource( 19 ) ],
 "loop": true,
 "name": "danger2",
@@ -102,11 +107,6 @@ animations = [ {
 "loop": true,
 "name": "fillNext",
 "speed": 5.0
-}, {
-"frames": [ SubResource( 25 ), SubResource( 26 ), SubResource( 27 ), SubResource( 28 ), SubResource( 27 ), SubResource( 26 ), SubResource( 26 ), SubResource( 27 ), SubResource( 28 ), SubResource( 28 ), SubResource( 27 ), SubResource( 26 ), SubResource( 25 ) ],
-"loop": true,
-"name": "danger3",
-"speed": 3.0
 } ]
 
 [sub_resource type="RectangleShape2D" id=7]
