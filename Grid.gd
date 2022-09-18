@@ -44,6 +44,7 @@ func _ready():
 
 	# Choose a random GridBlock to set as filled at the start
 	var rand = RandomNumberGenerator.new();
+	rand.randomize();
 	var startingGridBlock = grid[rand.randi_range(0,gridHeight-1)][rand.randi_range(0,gridWidth-1)]
 	startingGridBlock.clicked()
 	clickAdvancesTurn = true;
@@ -203,6 +204,7 @@ func findNearbyEmptyGridBlock(gridBlock):
 	while directionsToCheck.size() > 0:
 		# Get a random direction
 		var rand = RandomNumberGenerator.new();
+		rand.randomize();
 		var dirToCheck = directionsToCheck[rand.randi_range(0, directionsToCheck.size()-1)]
 		
 		# Checking above
