@@ -41,9 +41,10 @@ func advanceDanger() -> bool:
 
 # Called by __on_GridBlock_input_event() when the GridBlock is left clicked
 func clicked():
-	# Change to filled state
-	self.setState(STATES.FILLED);
-	emit_signal("clicked")
+	# Change to filled state if empty
+	if state == STATES.EMPTY:
+		self.setState(STATES.FILLED);
+		emit_signal("clicked")
 
 # Updates the GridBlock's state to the new given state
 #newState=the STATES value of the new state

@@ -1,9 +1,17 @@
-extends Node
+extends Node2D
 
 export (PackedScene) var GridBlock;
 export (PackedScene) var ShapeShortL;
 export (PackedScene) var ShapeReverseShortL;
 export (PackedScene) var ShapeI;
+export (PackedScene) var ShapeSidewaysI;
+export (PackedScene) var ShapeL;
+export (PackedScene) var ShapeReverseL;
+export (PackedScene) var ShapeCross;
+export (PackedScene) var ShapeSidewaysCross;
+export (PackedScene) var ShapeReverseSidewaysCross;
+export (PackedScene) var ShapeDiagonal;
+export (PackedScene) var ShapeReverseDiagonal;
 
 ## Constants
 export (int) var gridWidth := 0; # In gridblocks
@@ -13,24 +21,30 @@ export (int) var gridBlockHeight := 0; # In pixels
 
 var ALL_SHAPES = [] # Holds every shape in the game, instantiated in _ready()
 
-var AVAILABLE_SHAPES_POSITIONS = [Vector2(95, 250), Vector2(95, 200), Vector2(95, 150)] # Holds the global coordinates of the shapes that are available
+var AVAILABLE_SHAPES_POSITIONS = [Vector2(50, 274), Vector2(50, 220), Vector2(50, 166)] # Holds the global coordinates of the shapes that are available
 
 ## Variables
 var grid := [];
 var clickAdvancesTurn := false; # boolean for whether clicks should advance a turn. Allows the starting fill block to be filled without advancing a turn
 var availableShapes := [null, null, null]; # Holds the available shapes
 var dangerPointsThisCycle := 0; # Holds the number of dangerPoints accrued this cycle
+var dangerPointsTotal := 0; # Holds the total number of dangerPoints accrued
 var dangerPointsNeeded := 36; # Holds the number of dangerPoints needed to advance this cycle
 var cycleNumber := 1; # Holds the cycle number. Dictates how many blocks get filled per turn
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	# Start as invisible
+	modulate = Color(1.0,1.0,1.0,0.0)
+	
 	# Fill the grid with GridBlocks
-	createGrid(grid, gridHeight, gridWidth, gridBlockHeight, gridBlockWidth, Vector2(161,60));
-	ALL_SHAPES = [ShapeShortL, ShapeReverseShortL, ShapeI]
+	createGrid(grid, gridHeight, gridWidth, gridBlockHeight, gridBlockWidth, Vector2(100,145));
+	ALL_SHAPES = [ShapeShortL, ShapeReverseShortL, ShapeI, ShapeSidewaysI, ShapeL, ShapeReverseL, ShapeCross, ShapeSidewaysCross, \
+	ShapeReverseSidewaysCross, ShapeDiagonal, ShapeReverseDiagonal]
 
 	# Choose a random GridBlock to set as filled at the start
 	var rand = RandomNumberGenerator.new();
+	rand.randomize();
 	var startingGridBlock = grid[rand.randi_range(0,gridHeight-1)][rand.randi_range(0,gridWidth-1)]
 	startingGridBlock.clicked()
 	clickAdvancesTurn = true;
@@ -117,14 +131,19 @@ func addRandomShapeToAvailable(index) -> bool:
 	shape.connect("placed", self, "_on_Shape_placed");
 	# Give grid
 	shape.grid = grid;
-	# Set the global and resting positions
-	shape.global_position = AVAILABLE_SHAPES_POSITIONS[index];
-	shape.restingPos = AVAILABLE_SHAPES_POSITIONS[index];
-	
-	availableShapes[index] = shape;
 	
 	# Add to tree
 	add_child(shape);
+	
+	# Set the starting position and add offsets
+	shape.global_position = AVAILABLE_SHAPES_POSITIONS[index];
+	shape.global_position.x += shape.horizontalOffset;
+	shape.global_position.y += shape.verticalOffset;
+	
+	shape.restingPos = shape.global_position;
+	
+	availableShapes[index] = shape;
+	
 	return true
 	
 # Puts a shape object into another  index
@@ -143,7 +162,10 @@ func setShapeInAvailableShapes(shape, index, prevIndex = -1) -> bool:
 	
 	# Set the global position and resting position of the new shape
 	shape.global_position = AVAILABLE_SHAPES_POSITIONS[index];
-	shape.restingPos = AVAILABLE_SHAPES_POSITIONS[index];
+	shape.global_position.x += shape.horizontalOffset;
+	shape.global_position.y += shape.verticalOffset;
+	
+	shape.restingPos = shape.global_position;
 	
 	# Put the shape in the availableShape list
 	availableShapes[index] = shape;
@@ -182,6 +204,7 @@ func findNearbyEmptyGridBlock(gridBlock):
 	while directionsToCheck.size() > 0:
 		# Get a random direction
 		var rand = RandomNumberGenerator.new();
+		rand.randomize();
 		var dirToCheck = directionsToCheck[rand.randi_range(0, directionsToCheck.size()-1)]
 		
 		# Checking above
@@ -280,6 +303,7 @@ func _on_Shape_placed(shape):
 #points=the amount of points to give
 func _on_dangerBlock_emptied(points):
 	dangerPointsThisCycle += points;
+	dangerPointsTotal += points;
 	
 	# If the player has enough dangerPoints, then advance to next cycle
 	if (dangerPointsThisCycle >= dangerPointsNeeded):
@@ -288,6 +312,11 @@ func _on_dangerBlock_emptied(points):
 		dangerPointsThisCycle -= dangerPointsNeeded
 		# Increase needed danger points every cycle
 		dangerPointsNeeded += 9
+		
+	# Update text
+	$ScoreCounter.text = str("Points: \n", dangerPointsTotal);
+	$NextCycleCounter.text = str("Next Level In: \n", str(dangerPointsNeeded-dangerPointsThisCycle));
+	$CycleCounter.text = str("Level: \n", cycleNumber);
 
 # Called when a GridBlock's danger timer ends. Ends the game
 func _on_gameOver():

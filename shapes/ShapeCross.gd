@@ -4,9 +4,9 @@ extends "res://shapes/shapeClass.gd"
 func _ready():
 	# Set all distances
 	disFromMainToTop = 2;
-	disFromMainToRight = 0;
+	disFromMainToRight = 1;
 	disFromMainToBottom = 1;
-	disFromMainToLeft = 0;
+	disFromMainToLeft = 1;
 	
 	# Set offsets for availableShapes pool
 	horizontalOffset = 0;
@@ -31,12 +31,16 @@ func placeShape(gridBlock) -> bool:
 	if (gridBlock in filledBlocks and \
 	grid[gridBlockRow-1][gridBlockCol] in filledBlocks and \
 	grid[gridBlockRow-2][gridBlockCol] in filledBlocks and \
-	grid[gridBlockRow+1][gridBlockCol] in filledBlocks):
+	grid[gridBlockRow+1][gridBlockCol] in filledBlocks and \
+	grid[gridBlockRow-1][gridBlockCol-1] in filledBlocks and \
+	grid[gridBlockRow-1][gridBlockCol+1] in filledBlocks):
 		# Wow this is ugly. Curly brackets for life
 		gridBlock.setState(gridBlock.STATES.EMPTY);
 		grid[gridBlockRow-1][gridBlockCol].setState(gridBlock.STATES.EMPTY);
 		grid[gridBlockRow-2][gridBlockCol].setState(gridBlock.STATES.EMPTY);
 		grid[gridBlockRow+1][gridBlockCol].setState(gridBlock.STATES.EMPTY);
+		grid[gridBlockRow-1][gridBlockCol-1].setState(gridBlock.STATES.EMPTY);
+		grid[gridBlockRow-1][gridBlockCol+1].setState(gridBlock.STATES.EMPTY);
 		
 		return true;
 		

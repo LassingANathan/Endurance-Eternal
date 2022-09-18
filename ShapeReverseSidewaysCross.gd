@@ -3,14 +3,14 @@ extends "res://shapes/shapeClass.gd"
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	# Set all distances
-	disFromMainToTop = 2;
-	disFromMainToRight = 0;
+	disFromMainToTop = 1;
+	disFromMainToRight = 1;
 	disFromMainToBottom = 1;
-	disFromMainToLeft = 0;
+	disFromMainToLeft = 2;
 	
 	# Set offsets for availableShapes pool
-	horizontalOffset = 0;
-	verticalOffset = 5;
+	horizontalOffset = 5;
+	verticalOffset = 0;
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
@@ -29,14 +29,18 @@ func placeShape(gridBlock) -> bool:
 	
 	# If all blocks on the grid that the shape overlaps are filled, then the shape can be placed. Empty the blocks and return true
 	if (gridBlock in filledBlocks and \
-	grid[gridBlockRow-1][gridBlockCol] in filledBlocks and \
-	grid[gridBlockRow-2][gridBlockCol] in filledBlocks and \
-	grid[gridBlockRow+1][gridBlockCol] in filledBlocks):
+	grid[gridBlockRow][gridBlockCol+1] in filledBlocks and \
+	grid[gridBlockRow][gridBlockCol-1] in filledBlocks and \
+	grid[gridBlockRow][gridBlockCol-2] in filledBlocks and \
+	grid[gridBlockRow-1][gridBlockCol-1] in filledBlocks and \
+	grid[gridBlockRow+1][gridBlockCol-1] in filledBlocks):
 		# Wow this is ugly. Curly brackets for life
 		gridBlock.setState(gridBlock.STATES.EMPTY);
-		grid[gridBlockRow-1][gridBlockCol].setState(gridBlock.STATES.EMPTY);
-		grid[gridBlockRow-2][gridBlockCol].setState(gridBlock.STATES.EMPTY);
-		grid[gridBlockRow+1][gridBlockCol].setState(gridBlock.STATES.EMPTY);
+		grid[gridBlockRow][gridBlockCol+1].setState(gridBlock.STATES.EMPTY);
+		grid[gridBlockRow][gridBlockCol-1].setState(gridBlock.STATES.EMPTY);
+		grid[gridBlockRow][gridBlockCol-2].setState(gridBlock.STATES.EMPTY);
+		grid[gridBlockRow-1][gridBlockCol-1].setState(gridBlock.STATES.EMPTY);
+		grid[gridBlockRow+1][gridBlockCol-1].setState(gridBlock.STATES.EMPTY);
 		
 		return true;
 		

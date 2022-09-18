@@ -3,14 +3,14 @@ extends "res://shapes/shapeClass.gd"
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	# Set all distances
-	disFromMainToTop = 2;
-	disFromMainToRight = 0;
-	disFromMainToBottom = 1;
+	disFromMainToTop = 3;
+	disFromMainToRight = 3;
+	disFromMainToBottom = 0;
 	disFromMainToLeft = 0;
-	
+
 	# Set offsets for availableShapes pool
-	horizontalOffset = 0;
-	verticalOffset = 5;
+	horizontalOffset = -15;
+	verticalOffset = 15;
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):
@@ -31,12 +31,18 @@ func placeShape(gridBlock) -> bool:
 	if (gridBlock in filledBlocks and \
 	grid[gridBlockRow-1][gridBlockCol] in filledBlocks and \
 	grid[gridBlockRow-2][gridBlockCol] in filledBlocks and \
-	grid[gridBlockRow+1][gridBlockCol] in filledBlocks):
+	grid[gridBlockRow-3][gridBlockCol] in filledBlocks and\
+	grid[gridBlockRow][gridBlockCol+1] in filledBlocks and \
+	grid[gridBlockRow][gridBlockCol+2] in filledBlocks and \
+	grid[gridBlockRow][gridBlockCol+3] in filledBlocks):
 		# Wow this is ugly. Curly brackets for life
 		gridBlock.setState(gridBlock.STATES.EMPTY);
 		grid[gridBlockRow-1][gridBlockCol].setState(gridBlock.STATES.EMPTY);
 		grid[gridBlockRow-2][gridBlockCol].setState(gridBlock.STATES.EMPTY);
-		grid[gridBlockRow+1][gridBlockCol].setState(gridBlock.STATES.EMPTY);
+		grid[gridBlockRow-3][gridBlockCol].setState(gridBlock.STATES.EMPTY);
+		grid[gridBlockRow][gridBlockCol+1].setState(gridBlock.STATES.EMPTY);
+		grid[gridBlockRow][gridBlockCol+2].setState(gridBlock.STATES.EMPTY);
+		grid[gridBlockRow][gridBlockCol+3].setState(gridBlock.STATES.EMPTY);
 		
 		return true;
 		

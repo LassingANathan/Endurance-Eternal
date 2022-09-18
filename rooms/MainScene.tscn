@@ -1,19 +1,165 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://Grid.tscn" type="PackedScene" id=1]
 [ext_resource path="res://shapes/ShapeShortL.tscn" type="PackedScene" id=2]
 [ext_resource path="res://shapes/ShapeReverseShortL.tscn" type="PackedScene" id=3]
 [ext_resource path="res://shapes/ShapeI.tscn" type="PackedScene" id=4]
+[ext_resource path="res://assets/fonts/visitor1.ttf" type="DynamicFontData" id=5]
+[ext_resource path="res://shapes/ShapeL.tscn" type="PackedScene" id=6]
+[ext_resource path="res://shapes/ShapeReverseL.tscn" type="PackedScene" id=7]
+[ext_resource path="res://shapes/ShapeSidewaysI.tscn" type="PackedScene" id=8]
+[ext_resource path="res://shapes/ShapeCross.tscn" type="PackedScene" id=9]
+[ext_resource path="res://shapes/ShapeSidewaysCross.tscn" type="PackedScene" id=10]
+[ext_resource path="res://shapes/ShapeReverseSidewaysCross.tscn" type="PackedScene" id=11]
+[ext_resource path="res://shapes/ShapeDiagonal.tscn" type="PackedScene" id=12]
+[ext_resource path="res://shapes/ShapeReverseDiagonal.tscn" type="PackedScene" id=13]
+[ext_resource path="res://rooms/MainScene.gd" type="Script" id=14]
+[ext_resource path="res://assets/sprites/ui/availableShapes.png" type="Texture" id=15]
+[ext_resource path="res://resources/defaultTheme.tres" type="Theme" id=16]
+
+[sub_resource type="DynamicFont" id=1]
+font_data = ExtResource( 5 )
+
+[sub_resource type="StyleBoxFlat" id=3]
+bg_color = Color( 0, 0, 0, 1 )
+
+[sub_resource type="StyleBoxFlat" id=4]
+bg_color = Color( 0, 0, 0, 1 )
+
+[sub_resource type="StyleBoxFlat" id=5]
+bg_color = Color( 0, 0, 0, 1 )
+
+[sub_resource type="StyleBoxFlat" id=6]
+bg_color = Color( 0, 0, 0, 1 )
+corner_detail = 1
+
+[sub_resource type="DynamicFont" id=2]
+size = 15
+font_data = ExtResource( 5 )
 
 [node name="MainRoom" type="Node"]
+script = ExtResource( 14 )
 
 [node name="Grid" parent="." instance=ExtResource( 1 )]
 ShapeShortL = ExtResource( 2 )
 ShapeReverseShortL = ExtResource( 3 )
 ShapeI = ExtResource( 4 )
+ShapeSidewaysI = ExtResource( 8 )
+ShapeL = ExtResource( 6 )
+ShapeReverseL = ExtResource( 7 )
+ShapeCross = ExtResource( 9 )
+ShapeSidewaysCross = ExtResource( 10 )
+ShapeReverseSidewaysCross = ExtResource( 11 )
+ShapeDiagonal = ExtResource( 12 )
+ShapeReverseDiagonal = ExtResource( 13 )
+
+[node name="ScoreCounter" type="Label" parent="Grid"]
+margin_left = 24.0
+margin_top = 310.0
+margin_right = 77.0
+margin_bottom = 345.0
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 0 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
+custom_fonts/font = SubResource( 1 )
+text = "points:
+0"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NextCycleCounter" type="Label" parent="Grid"]
+margin_left = 99.0
+margin_top = 310.0
+margin_right = 202.0
+margin_bottom = 345.0
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 0 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
+custom_fonts/font = SubResource( 1 )
+text = "next level:
+36"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="CycleCounter" type="Label" parent="Grid"]
+margin_left = 221.0
+margin_top = 310.0
+margin_right = 324.0
+margin_bottom = 345.0
+custom_colors/font_outline_modulate = Color( 0, 0, 0, 0 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
+custom_fonts/font = SubResource( 1 )
+text = "Level:
+1"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="AvailableShapesOutline" type="TextureRect" parent="Grid"]
+margin_left = 23.0
+margin_top = 140.0
+margin_right = 77.0
+margin_bottom = 302.0
+mouse_filter = 2
+texture = ExtResource( 15 )
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="MainMenuButton" type="Button" parent="Grid"]
+margin_left = -1.0
+margin_top = 357.0
+margin_right = 88.0
+margin_bottom = 380.0
+theme = ExtResource( 16 )
+custom_styles/hover = SubResource( 3 )
+custom_styles/pressed = SubResource( 4 )
+custom_styles/focus = SubResource( 5 )
+custom_styles/normal = SubResource( 6 )
+text = "Main Menu"
+__meta__ = {
+"_edit_use_anchors_": false
+}
 
 [node name="Camera2D" type="Camera2D" parent="."]
 current = true
-zoom = Vector2( 0.3, 0.3 )
+zoom = Vector2( 0.25, 0.25 )
 limit_left = 0
 limit_top = 0
+
+[node name="OpeningText" type="Label" parent="."]
+modulate = Color( 1, 1, 1, 0 )
+margin_left = 2.0
+margin_top = 96.0
+margin_right = 300.0
+margin_bottom = 253.0
+custom_fonts/font = SubResource( 2 )
+text = "\"Everything is temporary\"? No.
+Mortals solutions are temporary.  I am                  "
+align = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="OpeningText2" type="Label" parent="OpeningText"]
+margin_left = 24.0
+margin_top = 32.0
+margin_right = 322.0
+margin_bottom = 189.0
+custom_colors/font_color = Color( 1, 0, 0, 1 )
+custom_fonts/font = SubResource( 2 )
+text = "endurance eternal."
+align = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="OpeningTextTimer" type="Timer" parent="."]
+wait_time = 4.0
+one_shot = true
+autostart = true
+
+[connection signal="pressed" from="Grid/MainMenuButton" to="." method="_on_MainMenuButton_pressed"]
+[connection signal="timeout" from="OpeningTextTimer" to="." method="_on_OpeningTextTimer_timeout"]

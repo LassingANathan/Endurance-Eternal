@@ -27,14 +27,18 @@ _global_script_class_icons={
 [application]
 
 config/name="Eternally Enduring"
-run/main_scene="res://rooms/MainScene.tscn"
+run/main_scene="res://rooms/MainMenu.tscn"
 boot_splash/use_filter=false
 config/icon="res://icon.png"
 
 [display]
 
-window/size/width=1080
-window/size/height=1920
+window/size/width=1200
+window/size/height=1500
+window/size/test_width=800
+window/size/test_height=1000
+window/stretch/mode="2d"
+window/stretch/aspect="keep"
 
 [gdnative]
 
