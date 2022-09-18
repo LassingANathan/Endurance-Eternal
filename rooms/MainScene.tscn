@@ -105,7 +105,7 @@ margin_top = 96.0
 margin_right = 300.0
 margin_bottom = 253.0
 custom_fonts/font = SubResource( 2 )
-text = "\"Everything is temporary?\" No.
+text = "\"Everything is temporary\"? No.
 Mortals solutions are temporary.  I am                  "
 align = 1
 autowrap = true
