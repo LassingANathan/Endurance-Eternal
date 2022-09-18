@@ -7,7 +7,10 @@ func _ready():
 	disFromMainToRight = 3;
 	disFromMainToBottom = 0;
 	disFromMainToLeft = 0;
-	._ready();
+
+	# Set offsets for availableShapes pool
+	horizontalOffset = -15;
+	verticalOffset = 15;
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 #func _process(delta):

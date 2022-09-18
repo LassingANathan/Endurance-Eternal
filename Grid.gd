@@ -21,7 +21,7 @@ export (int) var gridBlockHeight := 0; # In pixels
 
 var ALL_SHAPES = [] # Holds every shape in the game, instantiated in _ready()
 
-var AVAILABLE_SHAPES_POSITIONS = [Vector2(50, 275), Vector2(50, 225), Vector2(50, 175)] # Holds the global coordinates of the shapes that are available
+var AVAILABLE_SHAPES_POSITIONS = [Vector2(50, 274), Vector2(50, 220), Vector2(50, 166)] # Holds the global coordinates of the shapes that are available
 
 ## Variables
 var grid := [];
@@ -127,14 +127,19 @@ func addRandomShapeToAvailable(index) -> bool:
 	shape.connect("placed", self, "_on_Shape_placed");
 	# Give grid
 	shape.grid = grid;
-	# Set the global and resting positions
-	shape.global_position = AVAILABLE_SHAPES_POSITIONS[index];
-	shape.restingPos = AVAILABLE_SHAPES_POSITIONS[index];
-	
-	availableShapes[index] = shape;
 	
 	# Add to tree
 	add_child(shape);
+	
+	# Set the starting position and add offsets
+	shape.global_position = AVAILABLE_SHAPES_POSITIONS[index];
+	shape.global_position.x += shape.horizontalOffset;
+	shape.global_position.y += shape.verticalOffset;
+	
+	shape.restingPos = shape.global_position;
+	
+	availableShapes[index] = shape;
+	
 	return true
 	
 # Puts a shape object into another  index
@@ -153,7 +158,10 @@ func setShapeInAvailableShapes(shape, index, prevIndex = -1) -> bool:
 	
 	# Set the global position and resting position of the new shape
 	shape.global_position = AVAILABLE_SHAPES_POSITIONS[index];
-	shape.restingPos = AVAILABLE_SHAPES_POSITIONS[index];
+	shape.global_position.x += shape.horizontalOffset;
+	shape.global_position.y += shape.verticalOffset;
+	
+	shape.restingPos = shape.global_position;
 	
 	# Put the shape in the availableShape list
 	availableShapes[index] = shape;

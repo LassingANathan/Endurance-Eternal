@@ -20,6 +20,9 @@ var disFromMainToTop := -1; # Distance, in blocks, from the main block to the to
 var disFromMainToRight := -1; # Distance, in blocks, from the main block to the rightmost block
 var disFromMainToBottom := -1; # Distance, in blocks, from the main block to the bottom block
 var disFromMainToLeft := -1; # Distance, in blocks, from the main block to the leftmost block
+var horizontalOffset := 0; # Horizontal Distance, in pixels, from the center of the mainBlock to the center of the whole shape.
+						   # Negative value means the mainblock is to the left of the true center. Used to place correctly in availableShapes pool. 
+var verticalOffset := 0; # Vertical version of above. Negative value means mainblock is above true center
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
