@@ -5,6 +5,7 @@ export (PackedScene) var ShapeShortL;
 export (PackedScene) var ShapeReverseShortL;
 export (PackedScene) var ShapeI;
 export (PackedScene) var ShapeL;
+export (PackedScene) var ShapeReverseL;
 
 ## Constants
 export (int) var gridWidth := 0; # In gridblocks
@@ -29,7 +30,7 @@ var cycleNumber := 1; # Holds the cycle number. Dictates how many blocks get fil
 func _ready():
 	# Fill the grid with GridBlocks
 	createGrid(grid, gridHeight, gridWidth, gridBlockHeight, gridBlockWidth, Vector2(100,145));
-	ALL_SHAPES = [ShapeShortL, ShapeReverseShortL, ShapeI, ShapeL]
+	ALL_SHAPES = [ShapeShortL, ShapeReverseShortL, ShapeI, ShapeL, ShapeReverseL]
 
 	# Choose a random GridBlock to set as filled at the start
 	var rand = RandomNumberGenerator.new();
