@@ -25,3 +25,6 @@ func _process(delta):
 func _on_PlayButton_pressed():
 	playButtonPressed = true;
 	
+# Called when the quit button is pressed
+func _on_QuitButton_pressed():
+	get_tree().quit();
