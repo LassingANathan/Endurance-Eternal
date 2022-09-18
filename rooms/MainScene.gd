@@ -11,7 +11,8 @@ var textFadingOut := false; # Bool for if the opening text is fading out
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	pass
+	# Set grid to invisible at first so clicking won't have an effect
+	$Grid.visible = false;
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):
@@ -45,5 +46,6 @@ func fade(node, fadeWeight):
 
 # Called when the opening text timer is done. Fades out text and fades in grid
 func _on_OpeningTextTimer_timeout():
+	$Grid.visible = true;
 	textFadingOut = true;
 	gridFadingIn = true;
