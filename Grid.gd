@@ -1,4 +1,4 @@
-extends Node
+extends Node2D
 
 export (PackedScene) var GridBlock;
 export (PackedScene) var ShapeShortL;
@@ -34,6 +34,9 @@ var cycleNumber := 1; # Holds the cycle number. Dictates how many blocks get fil
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
+	# Start as invisible
+	modulate = Color(1.0,1.0,1.0,0.0)
+	
 	# Fill the grid with GridBlocks
 	createGrid(grid, gridHeight, gridWidth, gridBlockHeight, gridBlockWidth, Vector2(100,145));
 	ALL_SHAPES = [ShapeShortL, ShapeReverseShortL, ShapeI, ShapeSidewaysI, ShapeL, ShapeReverseL, ShapeCross, ShapeSidewaysCross, \
