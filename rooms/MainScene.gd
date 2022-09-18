@@ -49,3 +49,7 @@ func _on_OpeningTextTimer_timeout():
 	$Grid.visible = true;
 	textFadingOut = true;
 	gridFadingIn = true;
+
+# Called when the main menu button is pressed
+func _on_MainMenuButton_pressed():
+	get_tree().change_scene("res://rooms/MainMenu.tscn");
