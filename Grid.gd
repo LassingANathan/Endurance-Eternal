@@ -58,7 +58,6 @@ func _ready():
 
 # Called at the beginning of every turn
 func nextTurn():
-	print(dangerPointsThisCycle)
 	# Get rng
 	var rand = RandomNumberGenerator.new();
 	rand.randomize();
