@@ -25,6 +25,10 @@ func _process(delta):
 func _on_PlayButton_pressed():
 	playButtonPressed = true;
 	
+# Called when the tuttorial button is ppressed
+func _on_TutorialButton_pressed():
+	get_tree().change_scene("res://rooms/TutorialScene.tscn")
+
 # Called when the quit button is pressed
 func _on_QuitButton_pressed():
 	get_tree().quit();

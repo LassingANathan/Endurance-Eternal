@@ -1,0 +1,161 @@
+[gd_scene load_steps=9 format=2]
+
+[ext_resource path="res://assets/fonts/visitor1.ttf" type="DynamicFontData" id=1]
+[ext_resource path="res://resources/defaultTheme.tres" type="Theme" id=2]
+[ext_resource path="res://rooms/TutorialScene.gd" type="Script" id=3]
+
+[sub_resource type="DynamicFont" id=1]
+size = 15
+font_data = ExtResource( 1 )
+
+[sub_resource type="StyleBoxFlat" id=2]
+bg_color = Color( 0, 0, 0, 1 )
+
+[sub_resource type="StyleBoxFlat" id=3]
+bg_color = Color( 0, 0, 0, 1 )
+
+[sub_resource type="StyleBoxFlat" id=4]
+bg_color = Color( 0, 0, 0, 1 )
+
+[sub_resource type="StyleBoxFlat" id=5]
+bg_color = Color( 0, 0, 0, 1 )
+corner_detail = 1
+
+[node name="TutorialScene" type="Node2D"]
+script = ExtResource( 3 )
+
+[node name="Camera2D" type="Camera2D" parent="."]
+current = true
+zoom = Vector2( 0.25, 0.25 )
+limit_left = 0
+limit_top = 0
+
+[node name="Text1" type="Label" parent="."]
+margin_right = 299.0
+margin_bottom = 157.0
+theme = ExtResource( 2 )
+custom_fonts/font = SubResource( 1 )
+text = "A nebulous force attempts to enter our reality... Please. Delay the inevitable. Hinder the beast's efforts as long as you can..."
+align = 1
+valign = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Text2" type="Label" parent="."]
+visible = false
+margin_right = 299.0
+margin_bottom = 157.0
+theme = ExtResource( 2 )
+custom_fonts/font = SubResource( 1 )
+text = "While stalling the beast, a grid of squares will lie before you.
+Every turn, the beast will fill a number of blocks based on the current level. The blocks it'll fill will be grey on the previous turn."
+align = 1
+valign = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Text3" type="Label" parent="."]
+visible = false
+margin_right = 299.0
+margin_bottom = 157.0
+theme = ExtResource( 2 )
+custom_fonts/font = SubResource( 1 )
+text = "If a filled block becomes surrounded on all 8 sides by other filled blocks, a 3 turn countdown will begin. The block must be emptied or un-surrounded before the timer ends."
+align = 1
+valign = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Text4" type="Label" parent="."]
+visible = false
+margin_right = 299.0
+margin_bottom = 157.0
+theme = ExtResource( 2 )
+custom_fonts/font = SubResource( 1 )
+text = "To empty a block, you must place a \"shape\" on it. Your available shapes will be shown in a column on the left.
+
+Your options are fleeting, however. If you do not use the top shape during your turn, it will disappear."
+align = 1
+valign = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Text5" type="Label" parent="."]
+visible = false
+margin_right = 299.0
+margin_bottom = 157.0
+theme = ExtResource( 2 )
+custom_fonts/font = SubResource( 1 )
+text = "A shape can only be placed on a block if all the squares it overlaps on the grid are filled."
+align = 1
+valign = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Text6" type="Label" parent="."]
+visible = false
+margin_right = 299.0
+margin_bottom = 157.0
+theme = ExtResource( 2 )
+custom_fonts/font = SubResource( 1 )
+text = "To that end, during your turn you may click a block to fill it. This could let you place a shape you otherwise may not have been able to place."
+align = 1
+valign = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Text7" type="Label" parent="."]
+visible = false
+margin_right = 299.0
+margin_bottom = 157.0
+theme = ExtResource( 2 )
+custom_fonts/font = SubResource( 1 )
+text = "A turn will pass everytime you place a shape or fill a block. This will advance timers, allow the beast to fill blocks, and remove your top available shape."
+align = 1
+valign = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Text8" type="Label" parent="."]
+visible = false
+margin_right = 299.0
+margin_bottom = 157.0
+theme = ExtResource( 2 )
+custom_fonts/font = SubResource( 1 )
+text = "Please. Delay the beast. Though your options are temporary and your solutions are short-lived, I trust you'll give us time for goodbyes."
+align = 1
+valign = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="NextButton" type="Button" parent="."]
+margin_top = 322.0
+margin_right = 300.0
+margin_bottom = 375.0
+theme = ExtResource( 2 )
+custom_styles/hover = SubResource( 2 )
+custom_styles/pressed = SubResource( 3 )
+custom_styles/focus = SubResource( 4 )
+custom_styles/normal = SubResource( 5 )
+text = "next"
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[connection signal="pressed" from="NextButton" to="." method="_on_NextButton_pressed"]
