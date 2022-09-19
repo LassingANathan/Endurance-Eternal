@@ -2,36 +2,26 @@ extends Node2D
 
 ## Variables
 # Can't declare TUTORIAL_COMPONENTS as a constant due to $'s being found at runtime, but it's practically a constant. Initialized in _ready()
-var TUTORIAL_COMPONENTS = [ 
-	[$Text1],
-	[$Text2],
-	[$Text3],
-	[$Text4],
-	[$Text5],
-	[$Text6],
-	[$Text7],
-	[$Text8]
-]; # Array of arrays. Each outer array is the tutorial page, each inner array is the components needed for that page
+var TUTORIAL_COMPONENTS = []; # Array of arrays. Each outer array is the tutorial page, each inner array is the components needed for that page
 var tutorialPage = 0; # Holds the current page of the tutorial
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
 	# Initialize TUTORIAL_COMPONENTS now that child nodes are loaded
 	TUTORIAL_COMPONENTS = [ 
+	[$Text0],
 	[$Text1],
 	[$Text2],
 	[$Text3],
 	[$Text4],
 	[$Text5],
 	[$Text6],
-	[$Text7],
-	[$Text8]];
+	[$Text7]];
 
 # Goes to the next page of the tutorial
 #page=the page of the tutorial to advance to
 func nextPage(page):
 	# If trying to go past the last page, then go back to main menu
-	print(page, ", ", TUTORIAL_COMPONENTS.size())
 	if (page >= TUTORIAL_COMPONENTS.size()):
 		get_tree().change_scene("res://rooms/MainMenu.tscn");
 		# Have to return, since change_scene() finishes the function before changing the scene

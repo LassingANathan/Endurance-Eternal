@@ -1,11 +1,25 @@
-[gd_scene load_steps=9 format=2]
+[gd_scene load_steps=23 format=2]
 
 [ext_resource path="res://assets/fonts/visitor1.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://resources/defaultTheme.tres" type="Theme" id=2]
 [ext_resource path="res://rooms/TutorialScene.gd" type="Script" id=3]
+[ext_resource path="res://assets/sprites/ui/3x3OneFilled.png" type="Texture" id=4]
+[ext_resource path="res://assets/sprites/ui/arrow.png" type="Texture" id=5]
+[ext_resource path="res://assets/sprites/ui/3x3fillNext.png" type="Texture" id=6]
+[ext_resource path="res://assets/sprites/ui/3x3TwoFilled.png" type="Texture" id=7]
+[ext_resource path="res://assets/sprites/shapeSprites/shapeShortL.png" type="Texture" id=8]
+[ext_resource path="res://assets/sprites/ui/availableShapes.png" type="Texture" id=9]
+[ext_resource path="res://assets/sprites/ui/checkmark.png" type="Texture" id=10]
+[ext_resource path="res://assets/sprites/ui/3x3InvalidPlace.png" type="Texture" id=11]
+[ext_resource path="res://assets/sprites/ui/3x3OneDanger.png" type="Texture" id=12]
+[ext_resource path="res://assets/sprites/ui/xmark.png" type="Texture" id=13]
+[ext_resource path="res://assets/sprites/ui/3x3MostFilled.png" type="Texture" id=14]
+[ext_resource path="res://assets/sprites/ui/3x3ValidPlace.png" type="Texture" id=15]
+[ext_resource path="res://assets/sprites/shapeSprites/shapeL.png" type="Texture" id=16]
+[ext_resource path="res://assets/sprites/shapeSprites/shapeCross.png" type="Texture" id=17]
 
 [sub_resource type="DynamicFont" id=1]
-size = 15
+size = 23
 font_data = ExtResource( 1 )
 
 [sub_resource type="StyleBoxFlat" id=2]
@@ -30,7 +44,7 @@ zoom = Vector2( 0.25, 0.25 )
 limit_left = 0
 limit_top = 0
 
-[node name="Text1" type="Label" parent="."]
+[node name="Text0" type="Label" parent="."]
 margin_right = 299.0
 margin_bottom = 157.0
 theme = ExtResource( 2 )
@@ -43,7 +57,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Text2" type="Label" parent="."]
+[node name="Text1" type="Label" parent="."]
 visible = false
 margin_right = 299.0
 margin_bottom = 157.0
@@ -58,10 +72,66 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Text3" type="Label" parent="."]
+[node name="Rect1_0" type="TextureRect" parent="Text1"]
+margin_left = 57.0
+margin_top = 163.0
+margin_right = 97.0
+margin_bottom = 203.0
+texture = ExtResource( 4 )
+stretch_mode = 4
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Rect1_1" type="TextureRect" parent="Text1"]
+margin_left = 93.0
+margin_top = 163.0
+margin_right = 133.0
+margin_bottom = 203.0
+texture = ExtResource( 5 )
+stretch_mode = 4
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Rect1_2" type="TextureRect" parent="Text1"]
+margin_left = 129.0
+margin_top = 163.0
+margin_right = 169.0
+margin_bottom = 203.0
+texture = ExtResource( 6 )
+stretch_mode = 4
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Rect1_3" type="TextureRect" parent="Text1"]
+margin_left = 165.0
+margin_top = 163.0
+margin_right = 205.0
+margin_bottom = 203.0
+texture = ExtResource( 5 )
+stretch_mode = 4
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Rect1_4" type="TextureRect" parent="Text1"]
+margin_left = 201.0
+margin_top = 163.0
+margin_right = 241.0
+margin_bottom = 203.0
+texture = ExtResource( 7 )
+stretch_mode = 4
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Text2" type="Label" parent="."]
 visible = false
 margin_right = 299.0
 margin_bottom = 157.0
+rect_pivot_offset = Vector2( -312, 136 )
 theme = ExtResource( 2 )
 custom_fonts/font = SubResource( 1 )
 text = "If a filled block becomes surrounded on all 8 sides by other filled blocks, a 3 turn countdown will begin. The block must be emptied or un-surrounded before the timer ends."
@@ -72,7 +142,40 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Text4" type="Label" parent="."]
+[node name="Rect2_0" type="TextureRect" parent="Text2"]
+margin_left = 90.0
+margin_top = 163.0
+margin_right = 130.0
+margin_bottom = 203.0
+texture = ExtResource( 14 )
+stretch_mode = 4
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Rect2_1" type="TextureRect" parent="Text2"]
+margin_left = 126.0
+margin_top = 163.0
+margin_right = 166.0
+margin_bottom = 203.0
+texture = ExtResource( 5 )
+stretch_mode = 4
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Rect2_2" type="TextureRect" parent="Text2"]
+margin_left = 162.0
+margin_top = 163.0
+margin_right = 202.0
+margin_bottom = 203.0
+texture = ExtResource( 12 )
+stretch_mode = 4
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Text3" type="Label" parent="."]
 visible = false
 margin_right = 299.0
 margin_bottom = 157.0
@@ -88,7 +191,73 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Text5" type="Label" parent="."]
+[node name="Rect3_0" type="TextureRect" parent="Text3"]
+margin_left = 77.0
+margin_top = 157.0
+margin_right = 131.0
+margin_bottom = 319.0
+texture = ExtResource( 9 )
+stretch_mode = 4
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Rect3_1" type="TextureRect" parent="Text3"]
+margin_left = 130.0
+margin_top = 218.0
+margin_right = 170.0
+margin_bottom = 258.0
+texture = ExtResource( 5 )
+stretch_mode = 4
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Rect3_2" type="TextureRect" parent="Text3"]
+margin_left = 169.0
+margin_top = 157.0
+margin_right = 223.0
+margin_bottom = 319.0
+texture = ExtResource( 9 )
+stretch_mode = 4
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Rect3_3" type="TextureRect" parent="Text3"]
+margin_left = 83.0
+margin_top = 163.0
+margin_right = 125.0
+margin_bottom = 205.0
+texture = ExtResource( 16 )
+stretch_mode = 4
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Rect3_4" type="TextureRect" parent="Text3"]
+margin_left = 84.0
+margin_top = 217.0
+margin_right = 124.0
+margin_bottom = 259.0
+texture = ExtResource( 17 )
+stretch_mode = 4
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Rect3_5" type="TextureRect" parent="Text3"]
+margin_left = 177.0
+margin_top = 163.0
+margin_right = 217.0
+margin_bottom = 205.0
+texture = ExtResource( 17 )
+stretch_mode = 4
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Text4" type="Label" parent="."]
 visible = false
 margin_right = 299.0
 margin_bottom = 157.0
@@ -102,7 +271,73 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Text6" type="Label" parent="."]
+[node name="Rect4_0" type="TextureRect" parent="Text4"]
+margin_left = 37.0
+margin_top = 176.0
+margin_right = 77.0
+margin_bottom = 216.0
+texture = ExtResource( 8 )
+stretch_mode = 4
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Rect4_1" type="TextureRect" parent="Text4"]
+margin_left = 80.0
+margin_top = 180.0
+margin_right = 120.0
+margin_bottom = 220.0
+texture = ExtResource( 15 )
+stretch_mode = 4
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Rect4_2" type="TextureRect" parent="Text4"]
+margin_left = 57.0
+margin_top = 220.0
+margin_right = 97.0
+margin_bottom = 260.0
+texture = ExtResource( 10 )
+stretch_mode = 4
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Rect4_3" type="TextureRect" parent="Text4"]
+margin_left = 163.0
+margin_top = 176.0
+margin_right = 203.0
+margin_bottom = 216.0
+texture = ExtResource( 8 )
+stretch_mode = 4
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Rect4_4" type="TextureRect" parent="Text4"]
+margin_left = 206.0
+margin_top = 180.0
+margin_right = 246.0
+margin_bottom = 220.0
+texture = ExtResource( 11 )
+stretch_mode = 4
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Rect4_5" type="TextureRect" parent="Text4"]
+margin_left = 183.0
+margin_top = 220.0
+margin_right = 223.0
+margin_bottom = 260.0
+texture = ExtResource( 13 )
+stretch_mode = 4
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Text5" type="Label" parent="."]
 visible = false
 margin_right = 299.0
 margin_bottom = 157.0
@@ -116,7 +351,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Text7" type="Label" parent="."]
+[node name="Text6" type="Label" parent="."]
 visible = false
 margin_right = 299.0
 margin_bottom = 157.0
@@ -130,7 +365,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Text8" type="Label" parent="."]
+[node name="Text7" type="Label" parent="."]
 visible = false
 margin_right = 299.0
 margin_bottom = 157.0
