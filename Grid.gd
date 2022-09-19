@@ -21,7 +21,7 @@ export (int) var gridBlockHeight := 0; # In pixels
 
 var ALL_SHAPES = [] # Holds every shape in the game, instantiated in _ready()
 
-var AVAILABLE_SHAPES_POSITIONS = [Vector2(50, 274), Vector2(50, 220), Vector2(50, 166)] # Holds the global coordinates of the shapes that are available
+var AVAILABLE_SHAPES_POSITIONS = [Vector2(50, 239), Vector2(50, 185), Vector2(50, 131)] # Holds the global coordinates of the shapes that are available
 
 ## Variables
 var grid := [];
@@ -319,4 +319,4 @@ func _on_dangerBlock_emptied(points):
 
 # Called when a GridBlock's danger timer ends. Ends the game
 func _on_gameOver():
-	get_tree().quit();
+	get_parent().gridFadingOut = true;

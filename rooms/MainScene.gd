@@ -29,6 +29,14 @@ func _process(delta):
 		# If the grid is fully visible, then stop fading it in
 		if $Grid.modulate.a >= 1.0:
 			gridFadingIn = false;
+			
+	# Slowly fade out the grid if necessary
+	if gridFadingOut:
+		fade($Grid, -fadeWeight*0.5);
+		# If the grid is fully invisible, then switch to the main menu
+		if $Grid.modulate.a <= 0.0:
+			gridFadingIn = false;
+			get_tree().change_scene("res://rooms/MainMenu.tscn")
 	
 	# Slowly fade out text if necessary
 	if textFadingOut:

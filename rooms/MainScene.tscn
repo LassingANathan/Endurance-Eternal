@@ -33,6 +33,7 @@ corner_detail = 1
 script = ExtResource( 14 )
 
 [node name="Grid" parent="." instance=ExtResource( 1 )]
+position = Vector2( 0, -36 )
 ShapeShortL = ExtResource( 2 )
 ShapeReverseShortL = ExtResource( 3 )
 ShapeI = ExtResource( 4 )
@@ -99,10 +100,10 @@ __meta__ = {
 }
 
 [node name="MainMenuButton" type="Button" parent="Grid"]
-margin_left = -1.0
-margin_top = 357.0
-margin_right = 88.0
-margin_bottom = 380.0
+margin_left = 3.0
+margin_top = 390.0
+margin_right = 117.969
+margin_bottom = 413.0
 theme = ExtResource( 16 )
 custom_styles/hover = SubResource( 3 )
 custom_styles/pressed = SubResource( 4 )
