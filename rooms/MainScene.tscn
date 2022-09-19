@@ -128,7 +128,7 @@ margin_right = 300.0
 margin_bottom = 253.0
 theme = ExtResource( 16 )
 text = "\"Everything is temporary\"? No.
-Mortals solutions are temporary.  I am                  "
+Mortal solutions are temporary.  I am                  "
 align = 1
 autowrap = true
 __meta__ = {
