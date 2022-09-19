@@ -30,6 +30,7 @@ config/name="Eternally Enduring"
 run/main_scene="res://rooms/MainMenu.tscn"
 boot_splash/use_filter=false
 config/icon="res://icon.png"
+config/windows_native_icon="res://icon.ico"
 
 [display]
 

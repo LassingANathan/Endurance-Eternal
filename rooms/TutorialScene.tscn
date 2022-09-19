@@ -143,10 +143,10 @@ __meta__ = {
 }
 
 [node name="Rect2_0" type="TextureRect" parent="Text2"]
-margin_left = 90.0
-margin_top = 163.0
-margin_right = 130.0
-margin_bottom = 203.0
+margin_left = 92.0
+margin_top = 232.0
+margin_right = 132.0
+margin_bottom = 272.0
 texture = ExtResource( 14 )
 stretch_mode = 4
 __meta__ = {
@@ -154,10 +154,10 @@ __meta__ = {
 }
 
 [node name="Rect2_1" type="TextureRect" parent="Text2"]
-margin_left = 126.0
-margin_top = 163.0
-margin_right = 166.0
-margin_bottom = 203.0
+margin_left = 128.0
+margin_top = 232.0
+margin_right = 168.0
+margin_bottom = 272.0
 texture = ExtResource( 5 )
 stretch_mode = 4
 __meta__ = {
@@ -165,10 +165,10 @@ __meta__ = {
 }
 
 [node name="Rect2_2" type="TextureRect" parent="Text2"]
-margin_left = 162.0
-margin_top = 163.0
-margin_right = 202.0
-margin_bottom = 203.0
+margin_left = 164.0
+margin_top = 232.0
+margin_right = 204.0
+margin_bottom = 272.0
 texture = ExtResource( 12 )
 stretch_mode = 4
 __meta__ = {
@@ -181,9 +181,7 @@ margin_right = 299.0
 margin_bottom = 157.0
 theme = ExtResource( 2 )
 custom_fonts/font = SubResource( 1 )
-text = "To empty a block, you must place a \"shape\" on it. Your available shapes will be shown in a column on the left.
-
-Your options are fleeting, however. If you do not use the top shape during your turn, it will disappear."
+text = "To empty a block, you must place a \"shape\" on it. Your available shapes will be shown in a column on the left."
 align = 1
 valign = 1
 autowrap = true
@@ -192,6 +190,53 @@ __meta__ = {
 }
 
 [node name="Rect3_0" type="TextureRect" parent="Text3"]
+margin_left = 121.0
+margin_top = 157.0
+margin_right = 175.0
+margin_bottom = 319.0
+texture = ExtResource( 9 )
+stretch_mode = 4
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Rect3_3" type="TextureRect" parent="Text3"]
+margin_left = 127.0
+margin_top = 163.0
+margin_right = 169.0
+margin_bottom = 205.0
+texture = ExtResource( 16 )
+stretch_mode = 4
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Rect3_4" type="TextureRect" parent="Text3"]
+margin_left = 128.0
+margin_top = 217.0
+margin_right = 168.0
+margin_bottom = 259.0
+texture = ExtResource( 17 )
+stretch_mode = 4
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Text4" type="Label" parent="."]
+visible = false
+margin_right = 299.0
+margin_bottom = 157.0
+theme = ExtResource( 2 )
+custom_fonts/font = SubResource( 1 )
+text = "Your options are fleeting, however. If you do not use the top shape during your turn, it will disappear."
+align = 1
+valign = 1
+autowrap = true
+__meta__ = {
+"_edit_use_anchors_": false
+}
+
+[node name="Rect3_0" type="TextureRect" parent="Text4"]
 margin_left = 77.0
 margin_top = 157.0
 margin_right = 131.0
@@ -202,7 +247,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Rect3_1" type="TextureRect" parent="Text3"]
+[node name="Rect3_1" type="TextureRect" parent="Text4"]
 margin_left = 130.0
 margin_top = 218.0
 margin_right = 170.0
@@ -213,7 +258,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Rect3_2" type="TextureRect" parent="Text3"]
+[node name="Rect3_2" type="TextureRect" parent="Text4"]
 margin_left = 169.0
 margin_top = 157.0
 margin_right = 223.0
@@ -224,7 +269,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Rect3_3" type="TextureRect" parent="Text3"]
+[node name="Rect3_3" type="TextureRect" parent="Text4"]
 margin_left = 83.0
 margin_top = 163.0
 margin_right = 125.0
@@ -235,7 +280,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Rect3_4" type="TextureRect" parent="Text3"]
+[node name="Rect3_4" type="TextureRect" parent="Text4"]
 margin_left = 84.0
 margin_top = 217.0
 margin_right = 124.0
@@ -246,7 +291,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Rect3_5" type="TextureRect" parent="Text3"]
+[node name="Rect3_5" type="TextureRect" parent="Text4"]
 margin_left = 177.0
 margin_top = 163.0
 margin_right = 217.0
@@ -257,7 +302,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Text4" type="Label" parent="."]
+[node name="Text5" type="Label" parent="."]
 visible = false
 margin_right = 299.0
 margin_bottom = 157.0
@@ -271,7 +316,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Rect4_0" type="TextureRect" parent="Text4"]
+[node name="Rect4_0" type="TextureRect" parent="Text5"]
 margin_left = 37.0
 margin_top = 176.0
 margin_right = 77.0
@@ -282,7 +327,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Rect4_1" type="TextureRect" parent="Text4"]
+[node name="Rect4_1" type="TextureRect" parent="Text5"]
 margin_left = 80.0
 margin_top = 180.0
 margin_right = 120.0
@@ -293,7 +338,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Rect4_2" type="TextureRect" parent="Text4"]
+[node name="Rect4_2" type="TextureRect" parent="Text5"]
 margin_left = 57.0
 margin_top = 220.0
 margin_right = 97.0
@@ -304,7 +349,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Rect4_3" type="TextureRect" parent="Text4"]
+[node name="Rect4_3" type="TextureRect" parent="Text5"]
 margin_left = 163.0
 margin_top = 176.0
 margin_right = 203.0
@@ -315,7 +360,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Rect4_4" type="TextureRect" parent="Text4"]
+[node name="Rect4_4" type="TextureRect" parent="Text5"]
 margin_left = 206.0
 margin_top = 180.0
 margin_right = 246.0
@@ -326,7 +371,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Rect4_5" type="TextureRect" parent="Text4"]
+[node name="Rect4_5" type="TextureRect" parent="Text5"]
 margin_left = 183.0
 margin_top = 220.0
 margin_right = 223.0
@@ -337,7 +382,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Text5" type="Label" parent="."]
+[node name="Text6" type="Label" parent="."]
 visible = false
 margin_right = 299.0
 margin_bottom = 157.0
@@ -351,7 +396,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Text6" type="Label" parent="."]
+[node name="Text7" type="Label" parent="."]
 visible = false
 margin_right = 299.0
 margin_bottom = 157.0
@@ -365,7 +410,7 @@ __meta__ = {
 "_edit_use_anchors_": false
 }
 
-[node name="Text7" type="Label" parent="."]
+[node name="Text8" type="Label" parent="."]
 visible = false
 margin_right = 299.0
 margin_bottom = 157.0
