@@ -26,19 +26,22 @@ _global_script_class_icons={
 
 [application]
 
-config/name="Eternally Enduring"
+config/name="Endurance Eternal"
 run/main_scene="res://rooms/MainMenu.tscn"
 boot_splash/use_filter=false
 config/icon="res://icon.png"
+config/windows_native_icon="res://icon.ico"
 
 [display]
 
 window/size/width=1200
 window/size/height=1500
-window/size/test_width=800
-window/size/test_height=1000
+window/size/resizable=false
+window/size/test_width=533
+window/size/test_height=667
+window/dpi/allow_hidpi=true
 window/stretch/mode="2d"
-window/stretch/aspect="keep"
+window/stretch/aspect="expand"
 
 [gdnative]
 
