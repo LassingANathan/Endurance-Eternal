@@ -73,10 +73,10 @@ __meta__ = {
 }
 
 [node name="Rect1_0" type="TextureRect" parent="Text1"]
-margin_left = 57.0
-margin_top = 163.0
-margin_right = 97.0
-margin_bottom = 203.0
+margin_left = 59.0
+margin_top = 281.0
+margin_right = 99.0
+margin_bottom = 321.0
 texture = ExtResource( 4 )
 stretch_mode = 4
 __meta__ = {
@@ -84,10 +84,10 @@ __meta__ = {
 }
 
 [node name="Rect1_1" type="TextureRect" parent="Text1"]
-margin_left = 93.0
-margin_top = 163.0
-margin_right = 133.0
-margin_bottom = 203.0
+margin_left = 95.0
+margin_top = 281.0
+margin_right = 135.0
+margin_bottom = 321.0
 texture = ExtResource( 5 )
 stretch_mode = 4
 __meta__ = {
@@ -95,10 +95,10 @@ __meta__ = {
 }
 
 [node name="Rect1_2" type="TextureRect" parent="Text1"]
-margin_left = 129.0
-margin_top = 163.0
-margin_right = 169.0
-margin_bottom = 203.0
+margin_left = 131.0
+margin_top = 281.0
+margin_right = 171.0
+margin_bottom = 321.0
 texture = ExtResource( 6 )
 stretch_mode = 4
 __meta__ = {
@@ -106,10 +106,10 @@ __meta__ = {
 }
 
 [node name="Rect1_3" type="TextureRect" parent="Text1"]
-margin_left = 165.0
-margin_top = 163.0
-margin_right = 205.0
-margin_bottom = 203.0
+margin_left = 167.0
+margin_top = 281.0
+margin_right = 207.0
+margin_bottom = 321.0
 texture = ExtResource( 5 )
 stretch_mode = 4
 __meta__ = {
@@ -117,10 +117,10 @@ __meta__ = {
 }
 
 [node name="Rect1_4" type="TextureRect" parent="Text1"]
-margin_left = 201.0
-margin_top = 163.0
-margin_right = 241.0
-margin_bottom = 203.0
+margin_left = 203.0
+margin_top = 281.0
+margin_right = 243.0
+margin_bottom = 321.0
 texture = ExtResource( 7 )
 stretch_mode = 4
 __meta__ = {

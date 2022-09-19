@@ -16,7 +16,8 @@ func _ready():
 	[$Text4],
 	[$Text5],
 	[$Text6],
-	[$Text7]];
+	[$Text7],
+	[$Text8]];
 
 # Goes to the next page of the tutorial
 #page=the page of the tutorial to advance to
