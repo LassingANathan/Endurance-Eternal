@@ -7,8 +7,9 @@ var fadeWeight := 3.0; # Holds a weight for how quickly the mainMenu fades
 
 # Called when the node enters the scene tree for the first time.
 func _ready():
-	# Turn on music (might be necessary if music was turned off by game failure)
+	# Turn on music and reset it (might be necessary if music was turned off by game failure)
 	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), 0);
+	get_node("/root/Music").play(0);
 
 # Called every frame
 func _process(delta):
