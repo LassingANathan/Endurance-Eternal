@@ -314,7 +314,7 @@ func _on_dangerBlock_emptied(points):
 		
 	# Update text
 	$ScoreCounter.text = str("Points: \n", dangerPointsTotal);
-	$NextCycleCounter.text = str("Next Level In: \n", str(dangerPointsNeeded-dangerPointsThisCycle));
+	$NextCycleCounter.text = str("Next Level: \n", str(dangerPointsNeeded-dangerPointsThisCycle));
 	$CycleCounter.text = str("Level: \n", cycleNumber);
 
 # Called when a GridBlock's danger timer ends. Ends the game
