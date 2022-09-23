@@ -70,7 +70,7 @@ theme = ExtResource( 16 )
 custom_colors/font_outline_modulate = Color( 0, 0, 0, 0 )
 custom_colors/font_color_shadow = Color( 0, 0, 0, 0 )
 text = "next level:
-36"
+9"
 __meta__ = {
 "_edit_use_anchors_": false
 }
