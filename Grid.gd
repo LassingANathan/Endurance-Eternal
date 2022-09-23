@@ -32,7 +32,7 @@ var clickAdvancesTurn := false; # boolean for whether clicks should advance a tu
 var availableShapes := [null, null, null]; # Holds the available shapes
 var dangerPointsThisCycle := 0; # Holds the number of dangerPoints accrued this cycle
 var dangerPointsTotal := 0; # Holds the total number of dangerPoints accrued
-var dangerPointsNeeded := 36; # Holds the number of dangerPoints needed to advance this cycle
+var dangerPointsNeeded := 9; # Holds the number of dangerPoints needed to advance this cycle
 var cycleNumber := 1; # Holds the cycle number. Dictates how many blocks get filled per turn
 
 # Called when the node enters the scene tree for the first time.
@@ -44,6 +44,11 @@ func _ready():
 	createGrid(grid, gridHeight, gridWidth, gridBlockHeight, gridBlockWidth, Vector2(100,145));
 	ALL_SHAPES = [ShapeShortL, ShapeReverseShortL, ShapeI, ShapeSidewaysI, ShapeL, ShapeReverseL, ShapeCross, ShapeSidewaysCross, \
 	ShapeReverseSidewaysCross, ShapeDiagonal, ShapeReverseDiagonal]
+	
+	# Set ui text
+	$ScoreCounter.text = str("Points: \n", dangerPointsTotal);
+	$NextCycleCounter.text = str("Next Level: \n", str(dangerPointsNeeded-dangerPointsThisCycle));
+	$CycleCounter.text = str("Level: \n", cycleNumber);
 
 	# Choose a random GridBlock to set as filled at the start
 	var rand = RandomNumberGenerator.new();
