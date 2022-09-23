@@ -1,9 +1,10 @@
-[gd_scene load_steps=20 format=2]
+[gd_scene load_steps=21 format=2]
 
 [ext_resource path="res://Grid.tscn" type="PackedScene" id=1]
 [ext_resource path="res://shapes/ShapeShortL.tscn" type="PackedScene" id=2]
 [ext_resource path="res://shapes/ShapeReverseShortL.tscn" type="PackedScene" id=3]
 [ext_resource path="res://shapes/ShapeI.tscn" type="PackedScene" id=4]
+[ext_resource path="res://assets/sounds/monsterGrowl.wav" type="AudioStream" id=5]
 [ext_resource path="res://shapes/ShapeL.tscn" type="PackedScene" id=6]
 [ext_resource path="res://shapes/ShapeReverseL.tscn" type="PackedScene" id=7]
 [ext_resource path="res://shapes/ShapeSidewaysI.tscn" type="PackedScene" id=8]
@@ -157,6 +158,15 @@ autostart = true
 [node name="FailTimer" type="Timer" parent="."]
 wait_time = 5.0
 
+[node name="SoundTimer" type="Timer" parent="."]
+wait_time = 4.9
+one_shot = true
+
+[node name="MonsterSound" type="AudioStreamPlayer" parent="."]
+stream = ExtResource( 5 )
+bus = "Sounds"
+
 [connection signal="pressed" from="Grid/MainMenuButton" to="." method="_on_MainMenuButton_pressed"]
 [connection signal="timeout" from="OpeningTextTimer" to="." method="_on_OpeningTextTimer_timeout"]
 [connection signal="timeout" from="FailTimer" to="." method="_on_FailTimer_timeout"]
+[connection signal="timeout" from="SoundTimer" to="." method="_on_SoundTimer_timeout"]

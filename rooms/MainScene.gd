@@ -50,7 +50,7 @@ func _on_gameOver(gridBlock):
 	# Start the failTimer (dictates how long to show the failed blocks)
 	$FailTimer.start();
 	# Turn off music
-	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), -80);
+	get_node("/root/Music").stop();
 	# Fade out grid
 	gridFadingOut = true;
 	# Create AnimatedSprite to represent the failed gridBlock
@@ -76,10 +76,20 @@ func _on_OpeningTextTimer_timeout():
 	textFadingOut = true;
 	gridFadingIn = true;
 
-# Called when the FailTimer is done. Dictates how long to display the fail blocks
+# Called when the FailTimer is done. Gets rid of the failed blocks and starts monster growl
 func _on_FailTimer_timeout():
-	get_tree().change_scene("res://rooms/MainMenu.tscn");
+	# Set all children to invisible (includes the AnimatedSprites for failed blocks)
+	for child in get_children():
+		if "visible" in child:
+			child.visible = false;
+	# Start the sound timer and play the sound
+	$SoundTimer.start();
+	$MonsterSound.play();
 
 # Called when the main menu button is pressed
 func _on_MainMenuButton_pressed():
+	get_tree().change_scene("res://rooms/MainMenu.tscn");
+
+# Called when the SoundTimer is done. Sends player back to main menu after monster sound is done playing
+func _on_SoundTimer_timeout():
 	get_tree().change_scene("res://rooms/MainMenu.tscn");
