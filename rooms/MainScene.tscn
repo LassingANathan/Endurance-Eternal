@@ -154,5 +154,9 @@ wait_time = 4.0
 one_shot = true
 autostart = true
 
+[node name="FailTimer" type="Timer" parent="."]
+wait_time = 5.0
+
 [connection signal="pressed" from="Grid/MainMenuButton" to="." method="_on_MainMenuButton_pressed"]
 [connection signal="timeout" from="OpeningTextTimer" to="." method="_on_OpeningTextTimer_timeout"]
+[connection signal="timeout" from="FailTimer" to="." method="_on_FailTimer_timeout"]

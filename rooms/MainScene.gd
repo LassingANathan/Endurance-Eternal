@@ -33,10 +33,9 @@ func _process(delta):
 	# Slowly fade out the grid if necessary
 	if gridFadingOut:
 		fade($Grid, -fadeWeight*0.5);
-		# If the grid is fully invisible, then switch to the main menu
+		# If the grid is fully invisible, then stop fading out
 		if $Grid.modulate.a <= 0.0:
 			gridFadingIn = false;
-			get_tree().change_scene("res://rooms/MainMenu.tscn")
 	
 	# Slowly fade out text if necessary
 	if textFadingOut:
@@ -48,6 +47,8 @@ func _process(delta):
 # Called when a GridBlock's danger timer ends. Ends the game
 # gridBlock=the gridBlock that ended the game
 func _on_gameOver(gridBlock):
+	# Start the failTimer (dictates how long to show the failed blocks)
+	$FailTimer.start();
 	# Turn off music
 	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), -80);
 	# Fade out grid
@@ -74,6 +75,10 @@ func _on_OpeningTextTimer_timeout():
 	$Grid.visible = true;
 	textFadingOut = true;
 	gridFadingIn = true;
+
+# Called when the FailTimer is done. Dictates how long to display the fail blocks
+func _on_FailTimer_timeout():
+	get_tree().change_scene("res://rooms/MainMenu.tscn");
 
 # Called when the main menu button is pressed
 func _on_MainMenuButton_pressed():
