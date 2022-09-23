@@ -45,6 +45,23 @@ func _process(delta):
 		if $OpeningText.modulate.a <= 0.0:
 			textFadingIn = false;
 
+# Called when a GridBlock's danger timer ends. Ends the game
+# gridBlock=the gridBlock that ended the game
+func _on_gameOver(gridBlock):
+	# Turn off music
+	AudioServer.set_bus_volume_db(AudioServer.get_bus_index("Master"), -80);
+	# Fade out grid
+	gridFadingOut = true;
+	# Create AnimatedSprite to represent the failed gridBlock
+	var danger3Sprite = AnimatedSprite.new();
+	var spriteFrames = load("res://resources/danger3AnimatedSprites.tres");
+	danger3Sprite.set_sprite_frames(spriteFrames)
+	
+	danger3Sprite.global_position = gridBlock.global_position;
+	danger3Sprite.playing = true;
+	
+	add_child(danger3Sprite)
+
 # Fades a node in or out, based on fadeWeight
 #node=the node to fade, fadeWeight=the weight to fade the node, negative means fading out, greater absval means faster
 func fade(node, fadeWeight):

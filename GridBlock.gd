@@ -3,7 +3,7 @@ extends Area2D
 ## Signals
 # Emitted when clicked.
 signal clicked()
-signal gameOver()
+signal gameOver(gridBlock) # gridBlock=the gridBlock that caused the gameover
 signal dangerBlock_emptied(points)
 
 ## Constants
@@ -29,7 +29,7 @@ func advanceDanger() -> bool:
 		return false;
 	
 	if (self.state == STATES.DANGER3):
-		emit_signal("gameOver");
+		emit_signal("gameOver", self);
 	if (self.state == STATES.DANGER2):
 		self.setState(STATES.DANGER3);
 		return true;

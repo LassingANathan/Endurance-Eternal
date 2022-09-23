@@ -13,6 +13,9 @@ export (PackedScene) var ShapeReverseSidewaysCross;
 export (PackedScene) var ShapeDiagonal;
 export (PackedScene) var ShapeReverseDiagonal;
 
+## Signals
+signal gameOver(gridBlock);
+
 ## Constants
 export (int) var gridWidth := 0; # In gridblocks
 export (int) var gridHeight := 0; # In gridblocks
@@ -264,7 +267,7 @@ func createGrid(grid, gridHeight, gridWidth, gridBlockHeight, gridBlockWidth, up
 			gridBlock.position = Vector2(currentGridBlockXPos, currentGridBlockYPos);
 			# Connect signals
 			gridBlock.connect("clicked", self, "_on_GridBlock_clicked");
-			gridBlock.connect("gameOver", self, "_on_gameOver");
+			gridBlock.connect("gameOver", get_parent(), "_on_gameOver");
 			gridBlock.connect("dangerBlock_emptied", self, "_on_dangerBlock_emptied");
 			# Give coordinates on grid
 			gridBlock.row = row;
@@ -317,6 +320,3 @@ func _on_dangerBlock_emptied(points):
 	$NextCycleCounter.text = str("Next Level: \n", str(dangerPointsNeeded-dangerPointsThisCycle));
 	$CycleCounter.text = str("Level: \n", cycleNumber);
 
-# Called when a GridBlock's danger timer ends. Ends the game
-func _on_gameOver():
-	get_parent().gridFadingOut = true;
