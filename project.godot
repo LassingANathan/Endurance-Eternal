@@ -32,6 +32,10 @@ boot_splash/use_filter=false
 config/icon="res://icon.png"
 config/windows_native_icon="res://icon.ico"
 
+[autoload]
+
+Music="res://Music.tscn"
+
 [display]
 
 window/size/width=1200
