@@ -88,8 +88,8 @@ func _on_FailTimer_timeout():
 
 # Called when the main menu button is pressed
 func _on_MainMenuButton_pressed():
-	get_tree().change_scene("res://rooms/MainMenu.tscn");
+	get_tree().change_scene("res://rooms/MainMenuRoom.tscn");
 
 # Called when the SoundTimer is done. Sends player back to main menu after monster sound is done playing
 func _on_SoundTimer_timeout():
-	get_tree().change_scene("res://rooms/MainMenu.tscn");
+	get_tree().change_scene("res://rooms/MainMenuRoom.tscn");

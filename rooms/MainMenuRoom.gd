@@ -28,7 +28,7 @@ func _process(delta):
 		
 		# If the alpha value is less than or equal to zero, switch rooms
 		if self.modulate.a8 <= 0:
-			get_tree().change_scene("res://rooms/MainScene.tscn")
+			get_tree().change_scene("res://rooms/MainRoom.tscn")
 		
 
 # Fades a node in or out, based on fadeWeight
@@ -44,7 +44,7 @@ func _on_PlayButton_pressed():
 	
 # Called when the tuttorial button is ppressed
 func _on_TutorialButton_pressed():
-	get_tree().change_scene("res://rooms/TutorialScene.tscn")
+	get_tree().change_scene("res://rooms/TutorialRoom.tscn")
 
 # Called when the quit button is pressed
 func _on_QuitButton_pressed():

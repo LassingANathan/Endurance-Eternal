@@ -24,7 +24,7 @@ func _ready():
 func nextPage(page):
 	# If trying to go past the last page, then go back to main menu
 	if (page >= TUTORIAL_COMPONENTS.size()):
-		get_tree().change_scene("res://rooms/MainMenu.tscn");
+		get_tree().change_scene("res://rooms/MainMenuRoom.tscn");
 		# Have to return, since change_scene() finishes the function before changing the scene
 		return;
 		

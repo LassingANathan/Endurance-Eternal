@@ -2,7 +2,7 @@
 
 [ext_resource path="res://assets/fonts/visitor1.ttf" type="DynamicFontData" id=1]
 [ext_resource path="res://resources/defaultTheme.tres" type="Theme" id=2]
-[ext_resource path="res://rooms/TutorialScene.gd" type="Script" id=3]
+[ext_resource path="res://rooms/TutorialRoom.gd" type="Script" id=3]
 [ext_resource path="res://assets/sprites/ui/3x3OneFilled.png" type="Texture" id=4]
 [ext_resource path="res://assets/sprites/ui/arrow.png" type="Texture" id=5]
 [ext_resource path="res://assets/sprites/ui/3x3fillNext.png" type="Texture" id=6]
