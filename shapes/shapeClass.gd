@@ -33,6 +33,16 @@ func _ready():
 	restingPos = global_position;
 	# Set default z_index
 	z_index = 1;
+	
+# Called after the shape has been added to the scene (also used to update position), initializes the shape_find_owner
+#startingPos=the default position for the shape before adding offsets
+func init(startingPos : Vector2):
+	# Set the starting position and add offsets
+	global_position = startingPos;
+	global_position.x += horizontalOffset;
+	global_position.y += verticalOffset;
+	
+	restingPos = global_position;
 
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta):

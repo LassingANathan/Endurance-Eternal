@@ -142,13 +142,10 @@ func addRandomShapeToAvailable(index) -> bool:
 	# Add to tree
 	add_child(shape);
 	
-	# Set the starting position and add offsets
-	shape.global_position = AVAILABLE_SHAPES_POSITIONS[index];
-	shape.global_position.x += shape.horizontalOffset;
-	shape.global_position.y += shape.verticalOffset;
+	# Initialize shape
+	shape.init(AVAILABLE_SHAPES_POSITIONS[index]);
 	
-	shape.restingPos = shape.global_position;
-	
+	# Add created shape to list of shapes
 	availableShapes[index] = shape;
 	
 	return true
@@ -167,12 +164,8 @@ func setShapeInAvailableShapes(shape, index, prevIndex = -1) -> bool:
 	if availableShapes[index] != null:
 		return false;
 	
-	# Set the global position and resting position of the new shape
-	shape.global_position = AVAILABLE_SHAPES_POSITIONS[index];
-	shape.global_position.x += shape.horizontalOffset;
-	shape.global_position.y += shape.verticalOffset;
-	
-	shape.restingPos = shape.global_position;
+	# Update shape
+	shape.init(AVAILABLE_SHAPES_POSITIONS[index]);
 	
 	# Put the shape in the availableShape list
 	availableShapes[index] = shape;
